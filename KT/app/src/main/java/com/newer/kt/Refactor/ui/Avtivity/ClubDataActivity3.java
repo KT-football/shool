@@ -426,7 +426,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     }
 
     private void select4() {
-        setToolBarTitle("设置");
+        setToolBarTitle("我的");
         setNavigationTextView("");
         setOnNavigationClick(null);
         setRightText("");

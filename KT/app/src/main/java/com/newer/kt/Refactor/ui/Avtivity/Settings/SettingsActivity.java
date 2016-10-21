@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,8 +25,7 @@ public class SettingsActivity extends BaseToolBarActivity2 {
     private RelativeLayout item_3;
     private RelativeLayout item_4;
     private RelativeLayout item_5;
-    private ImageView logout;
-    private TextView qc_count;
+    private TextView logout;
 
     @Override
     protected void initToolBar() {
@@ -96,17 +94,10 @@ public class SettingsActivity extends BaseToolBarActivity2 {
         item_1 = (RelativeLayout) findViewById(R.id.layout_settings_item_1);
         item_2 = (RelativeLayout) findViewById(R.id.layout_settings_item_2);
         item_3 = (RelativeLayout) findViewById(R.id.layout_settings_item_3);
-        item_4 = (RelativeLayout) findViewById(R.id.layout_settings_item_4);
         item_5 = (RelativeLayout) findViewById(R.id.layout_settings_item_5);
-        qc_count = (TextView) findViewById(R.id.layout_settings_item_2_qc_count);
-        logout = (ImageView) findViewById(R.id.layout_settings_logout);
+        logout = (TextView) findViewById(R.id.layout_settings_logout);
 
         long bags = BagsDaoHelper.getInstance().getTotalCount();
-        if (bags == 0) {
-            qc_count.setText("暂无数据");
-        } else {
-            qc_count.setText(String.valueOf(bags));
-        }
 
         version.setText("V " + PhoneUtils.getVersionName(getThis()));
     }
@@ -114,7 +105,6 @@ public class SettingsActivity extends BaseToolBarActivity2 {
     /**
      * 点击进入学生or气场or赛事列表页面
      *
-     * @param code
      */
     private void doStartActivity() {
         Intent intent = new Intent(this, ListActivity.class);

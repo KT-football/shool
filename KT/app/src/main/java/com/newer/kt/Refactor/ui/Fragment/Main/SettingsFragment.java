@@ -6,9 +6,11 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.frame.app.base.fragment.BaseFragment;
 import com.frame.app.utils.PhoneUtils;
 import com.newer.kt.R;
@@ -19,6 +21,8 @@ import com.newer.kt.Refactor.ui.Avtivity.LoginActivity;
 import com.newer.kt.Refactor.ui.Avtivity.Settings.AboutKTActivity;
 import com.newer.kt.Refactor.ui.Avtivity.Settings.CampusStatisticsActivity;
 import com.newer.kt.Refactor.ui.Avtivity.Settings.HelpActivity;
+import com.newer.kt.Refactor.ui.Avtivity.Settings.MineSchoolInfoActivity;
+import com.newer.kt.Refactor.ui.Avtivity.Settings.SchoolEquipmentActivity;
 import com.newer.kt.Refactor.ui.Avtivity.Settings.SchoolStatisticsActivity;
 
 /**
@@ -29,11 +33,12 @@ public class SettingsFragment extends BaseFragment {
     private RelativeLayout item_1;
     private RelativeLayout item_2;
     private RelativeLayout item_3;
-    private RelativeLayout item_4;
     private RelativeLayout item_5;
-    private ImageView logout;
-    private TextView qc_count;
+    private TextView logout;
     private int mType = 0;
+    private ImageView mHead;
+    private TextView mSchool,mTime;
+    private LinearLayout linear_info;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -42,17 +47,18 @@ public class SettingsFragment extends BaseFragment {
         item_1 = (RelativeLayout) getViewById(R.id.layout_settings_item_1);
         item_2 = (RelativeLayout) getViewById(R.id.layout_settings_item_2);
         item_3 = (RelativeLayout) getViewById(R.id.layout_settings_item_3);
-        item_4 = (RelativeLayout) getViewById(R.id.layout_settings_item_4);
         item_5 = (RelativeLayout) getViewById(R.id.layout_settings_item_5);
-        qc_count = (TextView) getViewById(R.id.layout_settings_item_2_qc_count);
-        logout = (ImageView) getViewById(R.id.layout_settings_logout);
-
+        logout = (TextView) getViewById(R.id.layout_settings_logout);
+        mHead = getViewById(R.id.image_head);
+        mSchool = getViewById(R.id.tv_shcool);
+        mTime = getViewById(R.id.tv_time);
+        linear_info = getViewById(R.id.linear_info);
         long bags = BagsDaoHelper.getInstance().getTotalCount();
-        if (bags == 0) {
-            qc_count.setText("暂无数据");
-        } else {
-            qc_count.setText(String.valueOf(bags));
-        }
+//        if (bags == 0) {
+//            qc_count.setText("暂无数据");
+//        } else {
+//            qc_count.setText(String.valueOf(bags));
+//        }
 
         version.setText("V " + PhoneUtils.getVersionName(getThis()));
         mType = PreferenceManager.getDefaultSharedPreferences(getThis()).getInt(LoginActivity.PRE_CURRENT_TAYPE, 0);
@@ -94,7 +100,7 @@ public class SettingsFragment extends BaseFragment {
         item_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doStartActivity();
+                startActivity(SchoolEquipmentActivity.class);
             }
         });
         item_3.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +123,12 @@ public class SettingsFragment extends BaseFragment {
                 startActivity(LoginActivity.class);
             }
         });
+        linear_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(MineSchoolInfoActivity.class);
+            }
+        });
     }
 
     @Override
@@ -137,7 +149,6 @@ public class SettingsFragment extends BaseFragment {
     /**
      * 点击进入学生or气场or赛事列表页面
      *
-     * @param code
      */
     private void doStartActivity() {
         Intent intent = new Intent(getThis(), ListActivity.class);

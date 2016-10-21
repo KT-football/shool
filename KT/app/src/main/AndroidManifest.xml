@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.newer.kt"> <!-- 录像功能 -->
-    <uses-sdk
-        tools:overrideLibrary="tv.danmaku.ijk.media.player_arm64,com.example.ijkplayer_x86_64"
-        />
+    <uses-sdk tools:overrideLibrary="tv.danmaku.ijk.media.player_arm64,com.example.ijkplayer_x86_64" />
 
     <!-- GPS定位权限 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -31,7 +29,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 网络请求 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -42,8 +40,10 @@
 
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
@@ -51,11 +51,11 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
 
     <application
@@ -82,23 +82,46 @@
         </activity>
 
 
+        <activity
+            android:name=".Refactor.ui.Avtivity.FootballLesson.ImageBrowsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Refactor.view.video.VideoFullScreenActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="landscape" />
 
-        <activity android:name=".Refactor.ui.Avtivity.FootballLesson.ImageBrowsActivity"
+        <activity
+            android:name=".Refactor.ui.Avtivity.Manager.RecordingActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape"
             android:hardwareAccelerated="true"
-            />
-        <activity android:name=".Refactor.view.video.VideoFullScreenActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape"
-            android:hardwareAccelerated="true"
-            />
-
-        <activity android:name=".Refactor.ui.Avtivity.Manager.RecordingActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape"
-            android:hardwareAccelerated="true"
-            />
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Refactor.ui.Avtivity.Settings.QuestionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Refactor.ui.Avtivity.Settings.SchoolEquipmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Refactor.ui.Avtivity.Settings.UserFeelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Refactor.ui.Avtivity.Settings.SchoolHeadActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Refactor.ui.Avtivity.Settings.VideoCenterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Refactor.ui.Avtivity.Settings.UseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Refactor.ui.Avtivity.Settings.SchoolNameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Refactor.ui.Avtivity.Settings.MineSchoolInfoActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Refactor.ui.Avtivity.Manager.VideoListActivity"
             android:screenOrientation="portrait" />
@@ -163,7 +186,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".Refactor.ui.Avtivity.GameSelectorActivity"
             android:screenOrientation="portrait" />
@@ -174,8 +197,9 @@
         <activity
             android:name=".Refactor.ui.Avtivity.VSActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".Refactor.ui.Avtivity.UploadingActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".Refactor.ui.Avtivity.UploadingActivity"
+            android:screenOrientation="landscape" />
         <activity android:name=".Refactor.ui.Avtivity.GameResultActivity" />
         <activity
             android:name=".Refactor.ui.Avtivity.VideoActivity"
@@ -233,8 +257,8 @@
         <activity
             android:name=".Refactor.ui.Avtivity.FootballLesson.BigRoomTremActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTask"
             android:exported="true"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Refactor.ui.Avtivity.FootballLesson.BigRoomIndividualActivity"
@@ -293,16 +317,16 @@
         <activity
             android:name=".Refactor.ui.Avtivity.Settings.PlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTask"
             android:exported="true"
-          />
+            android:launchMode="singleTask" />
         <activity
             android:name=".Refactor.ui.Avtivity.RankingList.RankingListActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".Refactor.ui.Avtivity.FootballLesson.LessonGameActivity"
             android:screenOrientation="portrait" />
-        <receiver android:name=".service.InstallReceiver" >
+
+        <receiver android:name=".service.InstallReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>
@@ -310,24 +334,35 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" >
+            android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2" >
-                </action>
+                <action android:name="com.baidu.location.service_v2.2"></action>
             </intent-filter>
         </service>
 
         <!-- client_id及client_secret配置  这里需要切换为自己的id和secret -->
-        <meta-data android:name="client_id" android:value="5570b4b24049e570"/>
-        <meta-data android:name="client_secret" android:value="c40bcc367334ef63e42ef4562b460e7f"/>
+        <meta-data
+            android:name="client_id"
+            android:value="5570b4b24049e570" />
+        <meta-data
+            android:name="client_secret"
+            android:value="c40bcc367334ef63e42ef4562b460e7f" />
 
-        <meta-data android:value="YOUR_A PP_KEY" android:name="5745681b67e58e19e20033ae"/>
-        <meta-data android:value="KT" android:name="UMENG_CHANNEL"/>
+        <meta-data
+            android:name="5745681b67e58e19e20033ae"
+            android:value="YOUR_A PP_KEY" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="KT" />
 
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="zXHM467UTLosAUgErnljqCMwkly1lYEA" />
+            android:value="zXHM467UTLosAUgErnljqCMwkly1lYEA" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

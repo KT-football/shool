@@ -91,7 +91,7 @@
                 android:drawablePadding="2dp"
                 android:drawableTop="@drawable/selector_main_bottom_4"
                 android:gravity="center"
-                android:text="设置"
+                android:text="我的"
                 android:textColor="@drawable/selector_main_bottom_1_tv"
                 android:textSize="12dp" />
         </LinearLayout>
