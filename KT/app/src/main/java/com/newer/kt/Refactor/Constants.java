@@ -78,7 +78,10 @@ public class Constants {
     public static final String SAVE_USER_BODY_TEST = KTHOST + "shool_user_tests/save_user_school_body_quality";
     //    获取身体素质 和 足球技能(get)
     public static final String GET_BODY_FOOT_TEST = KTHOST + "shool_user_tests/get_body_qualities_and_football_skills";
-
+    //完成学习
+    public static final String STUDY_FINISHED = KTHOST + "study/study_finished";
+    //自我评分(post)
+    public static final String STUDY_SELF_SCORE_EVALUATION = KTHOST + "study/study_self_score_evaluation";
     //============================================== IntentCode =====================================================
 
     //学生列表进入

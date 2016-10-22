@@ -29,7 +29,7 @@
     <color name="baojia_press">#ce2f1b</color>
     <color name="transparent_background">#dd000000</color>
     <color name="bg_default">#343536</color>
-
+    <color name="train_start_text_color">#888888</color>
 
     <color name="head_color">#836FFF</color>
     <color name="information_title_color">#666666</color>

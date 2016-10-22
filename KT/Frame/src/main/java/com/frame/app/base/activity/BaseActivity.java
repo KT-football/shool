@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
@@ -58,6 +60,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 	protected <V> V getViewById(int resId) {
 		return (V) findViewById(resId);
+	}
+
+	public Drawable getDownDrawable(String path) {
+		return new BitmapDrawable(path);
 	}
 
 	/**

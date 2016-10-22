@@ -152,6 +152,22 @@
         <activity
             android:name=".Refactor.ui.Avtivity.Settings.SchoolAllPeopleDetailAcitivty"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Refactor.ui.Avtivity.FootballLesson.PersonVedioActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Refactor.ui.Avtivity.FootballLesson.LessonsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Refactor.ui.Avtivity.FootballLesson.VedioStartActiviy"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Refactor.ui.Avtivity.FootballLesson.VedioViewpagerActiviy"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Refactor.ui.Avtivity.FootballLesson.TrainOverActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Refactor.ui.Avtivity.FootballLesson.ZhenRenVodeoActivity"
             android:screenOrientation="portrait" />

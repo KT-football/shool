@@ -318,16 +318,33 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_download"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:background="#EAC243"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:text="下载训练（4.2M）"
-        android:textColor="@color/white" />
+        android:layout_weight="1"
+        android:layout_gravity="center">
+
+        <ProgressBar
+            android:id="@+id/xunlian_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="150dp"
+            android:layout_height="10dp"
+            android:layout_marginBottom="20dp"
+            android:max="100"
+            android:progressDrawable="@drawable/progressbar_color"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/layout_traindetails_start"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="#EAC243"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="下载训练（4.2M）"
+            android:textColor="@color/white" />
+    </LinearLayout>
 </RelativeLayout>
