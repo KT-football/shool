@@ -32,6 +32,7 @@ import com.frame.app.base.activity.BaseActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.newer.kt.R;
+import com.newer.kt.Refactor.Constants;
 import com.newer.kt.adapter.SearchAdapter;
 import com.newer.kt.entity.POI;
 import com.newer.kt.entity.PoiResult;
@@ -210,7 +211,7 @@ public class SearchAddressActivity extends BaseActivity {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-                String uri = "http://www.ktfootball.com/apiv2/games/search_place_by_baidu?" +
+                String uri = Constants.KTHOST+"games/search_place_by_baidu?" +
                         "region=" + address + "&query=" + poi + "&authenticity_token=K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8";
                 StringRequest request = new StringRequest(
                         uri,

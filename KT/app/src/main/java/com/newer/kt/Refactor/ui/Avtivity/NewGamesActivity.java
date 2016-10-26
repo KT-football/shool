@@ -31,6 +31,7 @@ import com.frame.app.base.activity.BaseActivity;
 import com.frame.app.utils.LogUtils;
 import com.ktfootball.www.dao.Games;
 import com.newer.kt.R;
+import com.newer.kt.Refactor.Constants;
 import com.newer.kt.Refactor.db.GamesDaoHelper;
 import com.newer.kt.entity.Clubs;
 import com.newer.kt.entity.CommitNewGame;
@@ -167,7 +168,7 @@ public class NewGamesActivity extends BaseActivity implements View.OnClickListen
         super.onStart();
         long uer_id = PreferenceManager.getDefaultSharedPreferences(this).getLong(LoginActivity.PRE_CURRENT_USER_ID,0);
         String id = String.valueOf(uer_id);
-        String url = "http://www.ktfootball.com/apiv2/games/new?user_id=" + id +
+        String url = Constants.KTHOST+"games/new?user_id=" + id +
                 "&authenticity_token=K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8";
         JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(
                 url,
@@ -348,7 +349,7 @@ public class NewGamesActivity extends BaseActivity implements View.OnClickListen
         } else if (textViewEndData.getText().toString().isEmpty()){
             myAlertDialog.doAlertDialog("请选择结束日期");
         } else {
-            String uri = "http://www.ktfootball.com/apiv2/games/create";
+            String uri = Constants.KTHOST+"games/create";
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("user_id",commitNewGame.user_id);

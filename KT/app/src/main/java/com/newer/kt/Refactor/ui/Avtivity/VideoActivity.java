@@ -26,6 +26,7 @@ import com.ktfootball.www.dao.SideAandB;
 import com.ktfootball.www.dao.VcrPath;
 import com.newer.kt.Business.ServiceLoadBusiness;
 import com.newer.kt.R;
+import com.newer.kt.Refactor.Constants;
 import com.newer.kt.Refactor.Entitiy.Token;
 import com.newer.kt.adapter.VideoAdapter;
 import com.newer.kt.Refactor.db.SideAandBDaoHelper;
@@ -391,7 +392,7 @@ public class VideoActivity extends BaseActivity {
             e.printStackTrace();
         }
         LogUtils.e(jsonObject.toString());
-        String uri = "http://www.ktfootball.com/apiv2/offline/upload_battle";
+        String uri = Constants.KTHOST+"offline/upload_battle";
         JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(
                 Request.Method.POST,
                 uri,

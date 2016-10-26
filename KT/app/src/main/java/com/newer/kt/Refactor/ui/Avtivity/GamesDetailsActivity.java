@@ -82,7 +82,7 @@ public class GamesDetailsActivity extends BaseActivity {
             time.append(s);
             place.append(games.getPlace());
             introduction.append(games.getIntroduction() != null && !games.getIntroduction().isEmpty() ? games.getIntroduction() : "暂无介绍");
-            String path = Constants.HOST + games.getAvatar();
+            String path = Constants.Head_HOST + games.getAvatar();
             LogUtils.e(path);
 //            Glide.with(this).load(new File(path)).into(avatar);
             BitmapManager.getInstance().display(avatar,

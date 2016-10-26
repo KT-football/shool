@@ -19,6 +19,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.frame.app.base.activity.BaseActivity;
 import com.newer.kt.R;
+import com.newer.kt.Refactor.Constants;
 import com.newer.kt.myClass.MyAlertDialog;
 import com.newer.kt.url.VolleyUtil;
 import com.newer.kt.Refactor.view.wheelview.WheelView;
@@ -42,8 +43,8 @@ public class CreateClassActivity extends BaseActivity {
     @Bind(R.id.editText5)
     EditText editTextClass;
 
-    String[] nianJi = {"","小班","中班","大班","一年级","二年级","三年级","四年级",
-            "五年级","六年级","初一","初二","初三"};
+    String[] nianJi = {"", "小班", "中班", "大班", "一年级", "二年级", "三年级", "四年级",
+            "五年级", "六年级", "初一", "初二", "初三"};
 
     MyAlertDialog myAlertDialog;
 
@@ -65,7 +66,7 @@ public class CreateClassActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         myAlertDialog = new MyAlertDialog(this);
-        clubId = PreferenceManager.getDefaultSharedPreferences(this).getLong(LoginActivity.PRE_CURRENT_CLUB_ID,0);
+        clubId = PreferenceManager.getDefaultSharedPreferences(this).getLong(LoginActivity.PRE_CURRENT_CLUB_ID, 0);
     }
 
     public void doSeleteGrade(View view) {//选择年级
@@ -74,33 +75,33 @@ public class CreateClassActivity extends BaseActivity {
 
     public void doCreateClass(View view) {//开始创建
         String input = editTextClass.getText().toString();
-        if (grade == 0){
+        if (grade == 0) {
             myAlertDialog.doAlertDialog("请选择班级");
-        } else if (TextUtils.isEmpty(input)){
+        } else if (TextUtils.isEmpty(input)) {
             myAlertDialog.doAlertDialog("请输入班级");
         } else {
-            String url = "http://www.ktfootball.com/apiv2/school_class/create_school_class";
+            String url = Constants.KTHOST + "school_class/create_school_class";
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("club_id", clubId);
                 jsonObject.put("grade", grade);
                 jsonObject.put("cls", input);
-                jsonObject.put("authenticity_token","K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+                jsonObject.put("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.POST,url, jsonObject,
+            JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject jsonObject1) {
-                            Log.d("========",jsonObject1.toString());
+                            Log.d("========", jsonObject1.toString());
                             try {
                                 JSONObject jsonObject2 = new JSONObject(jsonObject1.toString());
                                 String response = jsonObject2.getString("response");
-                                if (response.equals("success")){
+                                if (response.equals("success")) {
                                     myAlertDialog.doAlertDialog("创建成功");
-                                } else if (response.equals("error")){
+                                } else if (response.equals("error")) {
                                     String msg = jsonObject2.getString("msg");
                                     myAlertDialog.doAlertDialog(msg);
                                 }
@@ -111,10 +112,9 @@ public class CreateClassActivity extends BaseActivity {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d("========",error.toString());
+                    Log.d("========", error.toString());
                 }
-            })
-            {
+            }) {
                 @Override
                 public Map<String, String> getHeaders() {
                     HashMap<String, String> headers = new HashMap<String, String>();
@@ -175,7 +175,7 @@ public class CreateClassActivity extends BaseActivity {
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.selectDialog_txv_confirm:
                     int i = sex.getCurrentItem();
                     grade = i;

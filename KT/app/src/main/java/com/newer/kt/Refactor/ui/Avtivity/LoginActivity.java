@@ -26,6 +26,7 @@ import com.frame.app.utils.LogUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.newer.kt.R;
+import com.newer.kt.Refactor.Constants;
 import com.newer.kt.Refactor.KTApplication;
 import com.newer.kt.entity.UserMsg;
 import com.newer.kt.myClass.MyAlertDialog;
@@ -82,7 +83,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     //向服务器发送json请求登录
     public void login(){
-        String url = "http://www.ktfootball.com/apiv2/users/login";
+        String url = Constants.KTHOST+"users/login";
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("account", user);

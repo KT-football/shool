@@ -145,7 +145,7 @@ public class UserInfoActivity extends BaseActivity {
             textViewClass.setText(nianJi[grade] + cls + "班");
             school_class_id = String.valueOf(cls);
         }
-        String uri = "http://www.ktfootball.com" + userInfo.avatar;
+        String uri = Constants.Head_HOST + userInfo.avatar;
 //        imageFile = BitmapManager.getInstance().getPhotoCacheDir(getThis(),uri);
         BitmapManager.getInstance().displayUserLogo(imageViewAvatar,
                 uri);

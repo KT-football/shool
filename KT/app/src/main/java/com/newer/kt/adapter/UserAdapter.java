@@ -60,7 +60,7 @@ public class UserAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         Users student = getItem(position);
-        String path = Constants.HOST + student.getAvatar();
+        String path = Constants.Head_HOST + student.getAvatar();
         BitmapManager.getInstance().displayUserLogo(holder.imageViewAvatar,
                 path);
         holder.textViewName.setText(student.getNickname());

@@ -120,7 +120,7 @@ public class LessonGameActivity extends BaseToolBarActivity2 {
         lessonPath = filePath +"/"+getFileName(courses.app_cartoon_lesson.download_images_url.replace(".zip",""));
         if (!"".equals(courses.app_cartoon_lesson.download_images_url)) {
             lessonname_rl.setVisibility(View.VISIBLE);
-            BitmapManager.getInstance().displayKTItem(lessonname_img,Constants.HOST+courses.app_cartoon_lesson.avatar);
+            BitmapManager.getInstance().displayKTItem(lessonname_img,Constants.Head_HOST+courses.app_cartoon_lesson.avatar);
         }else{
             lessonname_rl.setVisibility(View.GONE);
         }

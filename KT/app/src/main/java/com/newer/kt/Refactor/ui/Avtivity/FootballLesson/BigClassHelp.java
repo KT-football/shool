@@ -64,7 +64,7 @@ public class BigClassHelp extends BaseToolBarActivity2 {
         mTv_title.setText(mBigRoomIdiviBean.getName());
         mTv_shuom.setText(mBigRoomIdiviBean.getDescription());
         mTv_yaol.setText(mBigRoomIdiviBean.getIntro());
-        Glide.with(getThis()).load(Constants.HOST + mBigRoomIdiviBean.getAvatar()).into(mImageView);
+        Glide.with(getThis()).load(Constants.Head_HOST + mBigRoomIdiviBean.getAvatar()).into(mImageView);
 
     }
 

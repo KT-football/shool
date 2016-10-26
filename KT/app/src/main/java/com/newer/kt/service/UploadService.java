@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ktfootball.www.dao.SideAandB;
 import com.ktfootball.www.dao.VcrPath;
+import com.newer.kt.Refactor.Constants;
 import com.newer.kt.Refactor.ui.Avtivity.CaptureActivity;
 import com.newer.kt.Refactor.ui.Avtivity.ListActivity;
 import com.newer.kt.Refactor.ui.Avtivity.LoginActivity;
@@ -83,7 +84,7 @@ public class UploadService extends Service {
         private void initData() {
             long id = PreferenceManager.getDefaultSharedPreferences(UploadService.this).getLong(LoginActivity.PRE_CURRENT_USER_ID, 0);
             String club_id = String.valueOf(id);
-            String url = "http://www.ktfootball.com/apiv2/users/get_role?user_id=" +
+            String url = Constants.KTHOST+"users/get_role?user_id=" +
                     club_id + "&authenticity_token=K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8";
             JsonRequest jsonRequest = new JsonObjectRequest(url,
                     null,
@@ -261,7 +262,7 @@ public class UploadService extends Service {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String uri = "http://www.ktfootball.com/apiv2/offline/upload_battle";
+            String uri = Constants.KTHOST+"offline/upload_battle";
             JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(
                     Request.Method.POST,
                     uri,

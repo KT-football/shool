@@ -27,6 +27,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.frame.app.base.activity.BaseActivity;
 import com.newer.kt.R;
+import com.newer.kt.Refactor.Constants;
 import com.newer.kt.entity.Clubs;
 import com.newer.kt.entity.CountryCities;
 import com.newer.kt.entity.EditGameData;
@@ -156,7 +157,7 @@ public class EditGameActivity extends BaseActivity implements View.OnClickListen
         updataGameData.user_id = uresId;
         String uer_id = String.valueOf(uresId);
         String game_id = String.valueOf(gameId);
-        String url = "http://www.ktfootball.com/apiv2/games/edit?game_id="
+        String url = Constants.KTHOST+"games/edit?game_id="
                 + game_id + "&user_id=" + uer_id +
                 "&authenticity_token=K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8";
         JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(
@@ -270,7 +271,7 @@ public class EditGameActivity extends BaseActivity implements View.OnClickListen
         textViewGameAddress.setText(editGameData.place);
         textViewStartData.setText(editGameData.date_start);
         textViewEndData.setText(editGameData.date_end);
-        String url = "http://www.ktfootball.com" + editGameData.avatar;
+        String url = Constants.Head_HOST + editGameData.avatar;
         ImageRequest request = new ImageRequest(
                 url,
                 new Response.Listener<Bitmap>() {
@@ -369,7 +370,7 @@ public class EditGameActivity extends BaseActivity implements View.OnClickListen
         } else if (textViewEndData.getText().toString().isEmpty()){
             myAlertDialog.doAlertDialog("请选择结束日期");
         } else {
-            String uri = "http://www.ktfootball.com/apiv2/games/update";
+            String uri = Constants.KTHOST+"games/update";
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("user_id",updataGameData.user_id);

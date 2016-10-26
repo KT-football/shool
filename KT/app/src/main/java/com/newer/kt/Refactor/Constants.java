@@ -1,6 +1,5 @@
 package com.newer.kt.Refactor;
 
-import com.newer.kt.net.Host;
 
 /**
  * Created by jy on 16/5/18.
@@ -8,8 +7,9 @@ import com.newer.kt.net.Host;
 public class Constants {
 
 
-    public static final String HOST = "http://www.ktfootball.com";
-    public static final String KTHOST = HOST + "/apiv2/";
+    public static final String HOST = "http://api.ktfootball.com/";
+    public static final String KTHOST = HOST;
+    public static final String Head_HOST = "";
     //下载俱乐部数据
     public static final String GET_CLUB_DATA = KTHOST + "offline/get_club_data?authenticity_token=K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8&club_id=";
     //获取班级数据

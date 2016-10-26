@@ -306,42 +306,42 @@ public class KtActivity extends BaseActivity {
                         String nickname = user.getNickname();
                         switch (imageViewCode) {
                             case 1:
-                                String path1 = Constants.HOST + avatar;
+                                String path1 = Constants.Head_HOST + avatar;
                                 BitmapManager.getInstance().displayUserLogo(imageViewA, path1);
                                 textViewA.setVisibility(View.VISIBLE);
                                 textViewA.setText(nickname);
                                 textViewA.setTag(path1);
                                 break;
                             case 2:
-                                String path2 = Constants.HOST + avatar;
+                                String path2 = Constants.Head_HOST + avatar;
                                 BitmapManager.getInstance().displayUserLogo(imageViewB, path2);
                                 textViewB.setVisibility(View.VISIBLE);
                                 textViewB.setText(nickname);
                                 textViewB.setTag(path2);
                                 break;
                             case 3:
-                                String path3 = Constants.HOST + avatar;
+                                String path3 = Constants.Head_HOST + avatar;
                                 BitmapManager.getInstance().displayUserLogo(imageViewC, path3);
                                 textViewC.setVisibility(View.VISIBLE);
                                 textViewC.setText(nickname);
                                 textViewC.setTag(path3);
                                 break;
                             case 4:
-                                String path4 = Constants.HOST + avatar;
+                                String path4 = Constants.Head_HOST + avatar;
                                 BitmapManager.getInstance().displayUserLogo(imageViewD, path4);
                                 textViewD.setVisibility(View.VISIBLE);
                                 textViewD.setText(nickname);
                                 textViewD.setTag(path4);
                                 break;
                             case 5:
-                                String path5 = Constants.HOST + avatar;
+                                String path5 = Constants.Head_HOST + avatar;
                                 BitmapManager.getInstance().displayUserLogo(imageViewE, path5);
                                 textViewE.setVisibility(View.VISIBLE);
                                 textViewE.setText(nickname);
                                 textViewE.setTag(path5);
                                 break;
                             case 6:
-                                String path6 = Constants.HOST + avatar;
+                                String path6 = Constants.Head_HOST + avatar;
                                 BitmapManager.getInstance().displayUserLogo(imageViewF, path6);
                                 textViewF.setVisibility(View.VISIBLE);
                                 textViewF.setText(nickname);

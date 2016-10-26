@@ -41,7 +41,7 @@ public class BigRoomTremItem implements AdapterItem {
     @Override
     public void onUpdateViews(Object model, int position) {
         BigClassDbBean.ClassBean.ListBean bean = (BigClassDbBean.ClassBean.ListBean) model;
-        Glide.with(mImageView.getContext()).load(Constants.HOST+bean.getAvatar()).into(mImageView);
+        Glide.with(mImageView.getContext()).load(Constants.Head_HOST+bean.getAvatar()).into(mImageView);
         mTitle.setText(bean.getName());
     }
 

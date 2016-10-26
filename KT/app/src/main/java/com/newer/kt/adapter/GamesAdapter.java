@@ -70,7 +70,7 @@ public class GamesAdapter extends BaseAdapter {
         LogUtils.e(games.toString());
 //        String path = p.toString() + "/KT足球/" + String.valueOf(games.getGame_id()) + ".png";
 //        GlideHelper.displayCirlcle(context, path, holer.imageViewAvatar);
-        BitmapManager.getInstance().displayKTItem( holer.imageViewAvatar, Constants.HOST+games.getAvatar());
+        BitmapManager.getInstance().displayKTItem( holer.imageViewAvatar, Constants.Head_HOST+games.getAvatar());
 //        Glide.with(context).load(new File(path)).transform(new GlideCircleTransform(context)).into(holer.imageViewAvatar);
         holer.textViewId.setText(String.valueOf(position + 1));
         holer.textViewGameName.setText(games.getName());

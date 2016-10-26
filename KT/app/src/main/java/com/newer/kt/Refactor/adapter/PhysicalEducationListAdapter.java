@@ -28,7 +28,7 @@ public class PhysicalEducationListAdapter extends BaseRecyclerViewAdapter<GymCou
     protected void bindView(PhysicalEducationListViewHolder holder, int position, GymCourseTeacherFinishedStatistics.GymCourseTeacherFinishedStatisticsBean model) {
         holder.name.setText(model.nickname);
         holder.count.setText("已完成"+model.finished_count+"课教学");
-        BitmapManager.getInstance().displayUserLogo(holder.header, Constants.HOST+model.avatar);
+        BitmapManager.getInstance().displayUserLogo(holder.header, Constants.Head_HOST+model.avatar);
     }
 
     @Override
