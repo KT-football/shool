@@ -3,6 +3,7 @@ package com.newer.kt.Refactor.ui.Avtivity.Settings;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -14,6 +15,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.newer.kt.R;
+import com.newer.kt.Refactor.view.MyPullUpListView;
 import com.newer.kt.Refactor.view.video.VideoMediaManager;
 import com.newer.kt.Refactor.view.video.VideoPlayer;
 import com.newer.kt.Refactor.view.video.VideoPlayerStandard;
@@ -29,15 +31,14 @@ import butterknife.OnClick;
  * Created by leo on 16/10/21.
  */
 
-public class VideoCenterActivity extends BaseActivity {
-    @Bind(R.id.listView)
-    ListView mListView;
+public class VideoCenterActivity extends BaseActivity implements MyPullUpListView.MyPullUpListViewCallBack,SwipeRefreshLayout.OnRefreshListener{
+    @Bind(R.id.listView1)
+    MyPullUpListView mListView;
     private List<String> mList = new ArrayList<>();
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+    @Bind(R.id.swiperefresh)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    private BaseAdapter mAdapter;
+    private boolean isLoadMore;
 
     @Override
     protected void initHandler(Message msg) {
@@ -56,9 +57,13 @@ public class VideoCenterActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        mListView.setMyPullUpListViewCallBack(this);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         mList.add("dasdsadas");
         mList.add("dasdsadas");
-        mListView.setAdapter(new BaseAdapter() {
+        mList.add("dasdsadas");
+        mList.add("dasdsadas");
+        mListView.setAdapter(mAdapter = new BaseAdapter() {
             @Override
             public int getCount() {
                 return mList.size();
@@ -96,6 +101,26 @@ public class VideoCenterActivity extends BaseActivity {
     @OnClick(R.id.cancle)
     public void cancle() {
         finish();
+    }
+
+    @Override
+    public void scrollBottomState() {
+        if(!isLoadMore) {
+            isLoadMore = true;
+            mList.add("dasdsadas");
+            mList.add("dasdsadas");
+            mList.add("dasdsadas");
+            mList.add("dasdsadas");
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        if (!isLoadMore) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+
     }
 
 

@@ -34,9 +34,17 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/listView"
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:id="@+id/swiperefresh"
+        android:layout_height="match_parent">
+
+        <com.newer.kt.Refactor.view.MyPullUpListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.newer.kt.Refactor.view.MyPullUpListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>
