@@ -26,6 +26,7 @@ import com.yolanda.nohttp.rest.Response;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +99,8 @@ public class BigRoomListActivity extends BaseRecyclerViewNoRefresh {
         String data = KTApplication.getBigClassroomRecords();
         list = new ArrayList<>();
         try {
-            JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonObject = new JSONObject(data);
+            JSONArray jsonArray = jsonObject.getJSONArray("big_classroom_records");
             for(int x = 0;x < jsonArray.length();x++){
                 BigClassroomRecords bean = GsonTools.changeGsonToBean(jsonArray.get(x).toString(),BigClassroomRecords.class);
                 list.add(bean);

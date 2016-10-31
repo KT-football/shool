@@ -546,9 +546,8 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
      */
     private void loadAddClassData(final String club_id) {
 //        ServiceLoadBusiness.getInstance().getClubSchoolClassData(getThis(), club_id);
-
-        Request<String> request = NoHttp.createStringRequest(Constants.GET_CLUB_SCHOOL_CLASS_DATA, RequestMethod.GET);
-        request.add("club_id", club_id);
+        NoHttp.setDefaultReadTimeout(60*1000);
+        Request<String> request = NoHttp.createStringRequest(Constants.GET_CLUB_SCHOOL_CLASS_DATA+club_id, RequestMethod.GET);
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
 
             @Override
