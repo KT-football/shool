@@ -2,6 +2,7 @@ package com.newer.kt.adapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.newer.kt.Refactor.Entitiy.StudentsEvaluation;
 import com.newer.kt.Refactor.KTApplication;
 import com.newer.kt.Refactor.Net.CallServer;
 import com.newer.kt.Refactor.Net.HttpListener;
+import com.newer.kt.Refactor.ui.Avtivity.ListActivity;
 import com.newer.kt.Refactor.ui.Avtivity.UserInfoActivity;
 import com.newer.kt.Refactor.view.wheelview.WheelView;
 import com.newer.kt.Refactor.view.wheelview.adapter.ArrayWheelAdapter;
@@ -204,24 +206,33 @@ public class EvaluateFragmentAdapter extends BaseExpandableListAdapter {
             childViewHodler.mTv_weight.setTextColor(0xffffffff);
             childViewHodler.mTv_height.setTextColor(0xffffffff);
         }
-        if (mUser.get(groupPosition).get(childPosition).weight == null) {
+
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mGradeDialog.show();
-                    mGradeDialog.setonChooseListener(new onChooseListener() {
-                        @Override
-                        public void onChoose(int height, int weight) {
-                            childViewHodler.mTv_height.setText(height + "cm");
-                            childViewHodler.mTv_weight.setText(weight + "kg");
-                            saveUserInfo(height, weight, mUser.get(groupPosition).get(childPosition).user_id);
-                            EventBus.getDefault().post(new MainEvent(1));
-                        }
-                    });
+                    if (mUser.get(groupPosition).get(childPosition).weight == null) {
+                        mGradeDialog.show();
+                        mGradeDialog.setonChooseListener(new onChooseListener() {
+                            @Override
+                            public void onChoose(int height, int weight) {
+                                childViewHodler.mTv_height.setText(height + "cm");
+                                childViewHodler.mTv_weight.setText(weight + "kg");
+                                saveUserInfo(height, weight, mUser.get(groupPosition).get(childPosition).user_id);
+                                EventBus.getDefault().post(new MainEvent(1));
+                            }
+                        });
+                    }else{
+                        Intent intent1 = new Intent(mContext, UserInfoActivity.class);
+                        String userId = mUser.get(groupPosition).get(childPosition).user_id;
+                        intent1.putExtra("userId", userId);
+                        intent1.putExtra(ListActivity.EXTRA_USER_CODE, 2);
+                        intent1.putExtra("grade", mClasList.get(groupPosition).grade);
+                        intent1.putExtra("cls", Integer.valueOf(mClasList.get(groupPosition).cls));
+                        mContext.startActivity(intent1);
+                    }
 
                 }
             });
-        }
         return convertView;
     }
 

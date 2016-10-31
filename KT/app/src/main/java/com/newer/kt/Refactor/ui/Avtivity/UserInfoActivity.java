@@ -429,8 +429,7 @@ public class UserInfoActivity extends BaseActivity {
         map.put("nickname", name);
 //        map.put("avatar", avatar);
 
-        Pair<String, File>[] files = new Pair[]{new Pair<>("avatar", imageFile)};
-        ServiceLoadBusiness.getInstance().updateUserInfo(getThis(), getTAG(), map, files);
+        ServiceLoadBusiness.getInstance().updateUserInfo(getThis(), getTAG(), map, imageFile);
     }
 
     public void doGrader(View view) {//班级年级

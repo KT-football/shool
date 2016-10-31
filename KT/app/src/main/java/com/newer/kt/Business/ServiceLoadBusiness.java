@@ -11,10 +11,18 @@ import com.newer.kt.Refactor.Constants;
 import com.newer.kt.Refactor.Entitiy.ServiceDataResult;
 import com.newer.kt.Refactor.Entitiy.Token;
 import com.newer.kt.Refactor.Entitiy.UserInfo;
+import com.newer.kt.Refactor.KTApplication;
+import com.newer.kt.Refactor.Net.CallServer;
+import com.newer.kt.Refactor.Net.HttpListener;
 import com.newer.kt.Refactor.Net.NetUtils;
+import com.newer.kt.Refactor.utils.CommonUtil;
 import com.newer.kt.entity.ClubDataCount;
 import com.newer.kt.myClass.MyAlertDialog;
 import com.squareup.okhttp.Request;
+import com.yolanda.nohttp.FileBinary;
+import com.yolanda.nohttp.NoHttp;
+import com.yolanda.nohttp.RequestMethod;
+import com.yolanda.nohttp.rest.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,160 +64,196 @@ public class ServiceLoadBusiness extends BaseBusiness {
 
     /**
      * 下载俱乐部数据
+     *
      * @param act
      * @param club_id 俱乐部ID
      */
-    public void getClubData(final BaseActivity act,String club_id) {
-        NetUtils.getLoadData(Constants.GET_CLUB_DATA+club_id, new ResultCallback<String>() {
+    public void getClubData(final BaseActivity act, String club_id) {
+        final com.yolanda.nohttp.rest.Request<String> request = NoHttp.createStringRequest(Constants.GET_CLUB_DATA, RequestMethod.GET);
+        request.add("club_id", club_id);
+        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        CallServer.getRequestInstance().add(act, 0, request, new HttpListener<String>() {
             @Override
-            public void onError(Request request, Exception e) {
+            public void onSucceed(int what, Response<String> response) {
+                LogUtils.e(response.get());
+                isSucces(act, response.get(), GET_CLUB_DATA_SUCCESS,
+                        GET_CLUB_DATA_FAILURE, ServiceDataResult.class);
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
                 LogUtils.e(request.toString());
                 MyAlertDialog myAlertDialog = new MyAlertDialog(act);
                 myAlertDialog.doAlertDialog("网络连接超时");
             }
-
-            @Override
-            public void onResponse(final String response) {
-                LogUtils.e(response);
-                isSucces(act, response, GET_CLUB_DATA_SUCCESS,
-                        GET_CLUB_DATA_FAILURE, ServiceDataResult.class);
-            }
-        });
+        }, false, false);
     }
 
     /**
      * 获得学生数、气场数、赛事数数量
+     *
      * @param act
      * @param club_id
      */
-    public void getClubDataCount(final BaseActivity act,String club_id) {
-        NetUtils.getLoadData(Constants.GET_CLUB_DATA_COUNT+club_id, new ResultCallback<String>() {
+    public void getClubDataCount(final BaseActivity act, String club_id) {
 
-
+        final com.yolanda.nohttp.rest.Request<String> request = NoHttp.createStringRequest(Constants.GET_CLUB_DATA_COUNT, RequestMethod.GET);
+        request.add("club_id", club_id);
+        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        CallServer.getRequestInstance().add(act, 0, request, new HttpListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                LogUtils.e("getClubDataCount = " + response);
+                ClubDataCount clubDataCount = null;
+                try {
+                    clubDataCount = GsonTools.changeGsonToBean(response.get(), ClubDataCount.class);
+                    sendMessage(act, GET_CLUB_DATA_COUNT_SUCCESS, clubDataCount);
+                } catch (Exception e) {
+                    sendMessage(act, GET_CLUB_DATA_COUNT_FAILURE, "服务器错误");
+                }
+            }
 
             @Override
-            public void onError(Request request, Exception e) {
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
                 LogUtils.e(request.toString());
                 MyAlertDialog myAlertDialog = new MyAlertDialog(act);
                 myAlertDialog.doAlertDialog("网络连接超时");
             }
-
-            @Override
-            public void onResponse(final String response) {
-                LogUtils.e("getClubDataCount = " + response);
-                ClubDataCount clubDataCount = null;
-                try{
-                    clubDataCount = GsonTools.changeGsonToBean(response, ClubDataCount.class);
-                    sendMessage(act,GET_CLUB_DATA_COUNT_SUCCESS,clubDataCount);
-                }catch (Exception e){
-                    sendMessage(act,GET_CLUB_DATA_COUNT_FAILURE,"服务器错误");
-                }
-            }
-        });
+        }, false, false);
     }
 
     /**
      * 获得班级数据
+     *
      * @param act
      * @param club_id
      */
-    public void getClubSchoolClassData(final BaseActivity act,String club_id) {
-        NetUtils.getLoadData(Constants.GET_CLUB_SCHOOL_CLASS_DATA+club_id, new ResultCallback<String>() {
+    public void getClubSchoolClassData(final BaseActivity act, String club_id) {
+        final com.yolanda.nohttp.rest.Request<String> request = NoHttp.createStringRequest(Constants.GET_CLUB_SCHOOL_CLASS_DATA, RequestMethod.GET);
+        request.add("club_id", club_id);
+        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        CallServer.getRequestInstance().add(act, 0, request, new HttpListener<String>() {
             @Override
-            public void onError(Request request, Exception e) {
+            public void onSucceed(int what, Response<String> response) {
+                LogUtils.e(response.get());
+                sendMessage(act, GET_CLUB_SCHOOL_CLASS_DATA_SUCCESS, response);
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
                 LogUtils.e(request.toString());
                 MyAlertDialog myAlertDialog = new MyAlertDialog(act);
                 myAlertDialog.doAlertDialog("网络连接超时");
             }
-
-            @Override
-            public void onResponse(final String response) {
-                LogUtils.e(response);
-                sendMessage(act, GET_CLUB_SCHOOL_CLASS_DATA_SUCCESS, response);
-            }
-        });
+        }, false, false);
     }
 
     /**
      * 获取学生信息
+     *
      * @param act
-     * @param club_id
      */
-    public void getUserInfo(final BaseActivity act,String tag ,Map<String ,String> param) {
-        NetUtils.getLoadData(Constants.GET_USER_INFO,tag,param, new ResultCallback<String>() {
+    public void getUserInfo(final BaseActivity act, String tag, Map<String, String> param) {
+        final com.yolanda.nohttp.rest.Request<String> request = NoHttp.createStringRequest(Constants.GET_USER_INFO, RequestMethod.GET);
+        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        for (String key : param.keySet()) {
+            request.add(key, param.get(key));
+        }
+        CallServer.getRequestInstance().add(act, 0, request, new HttpListener<String>() {
             @Override
-            public void onError(Request request, Exception e) {
+            public void onSucceed(int what, Response<String> response) {
+                LogUtils.e("getUserInfo = " + response);
+                try {
+                    JSONObject js = new JSONObject(response.get());
+                    if (js.has("status")) {
+                        sendMessage(act, GET_USER_INFO_FAILURE, "用户不存在");
+                    } else {
+                        isSucces(act, response.get(), GET_USER_INFO_SUCCESS,
+                                GET_USER_INFO_FAILURE, UserInfo.class);
+                    }
+                } catch (JSONException e) {
+                    isSucces(act, response.get(), GET_USER_INFO_SUCCESS,
+                            GET_USER_INFO_FAILURE, UserInfo.class);
+                }
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
                 LogUtils.e(request.toString());
                 MyAlertDialog myAlertDialog = new MyAlertDialog(act);
                 myAlertDialog.doAlertDialog("网络连接超时");
             }
-
-            @Override
-            public void onResponse(final String response) {
-                LogUtils.e("getUserInfo = " + response);
-                try {
-                    JSONObject js = new JSONObject(response);
-                    if(js.has("status")){
-                        sendMessage(act,GET_USER_INFO_FAILURE,"用户不存在");
-                    }else{
-                        isSucces(act, response, GET_USER_INFO_SUCCESS,
-                                GET_USER_INFO_FAILURE, UserInfo.class);
-                    }
-                } catch (JSONException e) {
-                    isSucces(act, response, GET_USER_INFO_SUCCESS,
-                            GET_USER_INFO_FAILURE, UserInfo.class);
-                }
-
-            }
-        });
+        }, false, false);
     }
 
     /**
      * 获取token
+     *
      * @param act
-     * @param club_id
      */
-    public boolean getRole(final BaseActivity act,String tag ,Map<String ,String> param) {
-        return NetUtils.getLoadData(Constants.GET_ROLE,tag,param, new ResultCallback<String>() {
+    public boolean getRole(final BaseActivity act, String tag, Map<String, String> param) {
+
+        final com.yolanda.nohttp.rest.Request<String> request = NoHttp.createStringRequest(Constants.GET_ROLE, RequestMethod.GET);
+        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        for (String key : param.keySet()) {
+            request.add(key, param.get(key));
+        }
+        CallServer.getRequestInstance().add(act, 0, request, new HttpListener<String>() {
             @Override
-            public void onError(Request request, Exception e) {
+            public void onSucceed(int what, Response<String> response) {
+                LogUtils.e("getUserInfo = " + response);
+                isSucces(act, response.get(), GET_ROLE_SUCCESS,
+                        GET_ROLE_FAILURE, Token.class);
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
                 LogUtils.e(request.toString());
                 MyAlertDialog myAlertDialog = new MyAlertDialog(act);
                 myAlertDialog.doAlertDialog("网络连接超时");
             }
+        }, false, false);
 
-            @Override
-            public void onResponse(final String response) {
-                LogUtils.e("getUserInfo = "+response);
-                isSucces(act, response, GET_ROLE_SUCCESS,
-                        GET_ROLE_FAILURE, Token.class);
-            }
-        });
+        if (0 == CommonUtil.isNetworkAvailable(KTApplication.getContext()))
+            return false;
+        else
+            return true;
+
+
     }
+
 
     /**
      * 更改用户信息
+     *
      * @param act
-     * @param club_id
+     * @param files
      */
-    public void updateUserInfo(final BaseActivity act,String tag ,Map<String ,String> param,Pair<String, File>[] files) {
-        NetUtils.upload(Constants.UPDATE_USER_INFO,tag,param,files, new ResultCallback<String>() {
+    public void updateUserInfo(final BaseActivity act, String tag, Map<String, String> param, File files) {
+        final com.yolanda.nohttp.rest.Request<String> request = NoHttp.createStringRequest(Constants.UPDATE_USER_INFO, RequestMethod.POST);
+        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        for (String key : param.keySet()) {
+            request.add(key, param.get(key));
+        }
+        FileBinary fileBinary = new FileBinary(files);
+        request.add("avatar",fileBinary);
+        CallServer.getRequestInstance().add(act, 0, request, new HttpListener<String>() {
             @Override
-            public void onError(Request request, Exception e) {
+            public void onSucceed(int what, Response<String> response) {
+                LogUtils.e("updateUserInfo = " + response.get());
+                act.closeLoadingDialog();
+                act.finish();
+//                isSucces(act, response.get(), GET_ROLE_SUCCESS,
+//                        GET_ROLE_FAILURE, Token.class);
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
                 LogUtils.e(request.toString());
                 act.closeLoadingDialog();
                 MyAlertDialog myAlertDialog = new MyAlertDialog(act);
                 myAlertDialog.doAlertDialog("网络连接超时");
             }
-
-            @Override
-            public void onResponse(final String response) {
-                LogUtils.e("updateUserInfo = "+response);
-                act.closeLoadingDialog();
-                act.finish();
-//                isSucces(act, response, GET_ROLE_SUCCESS,
-//                        GET_ROLE_FAILURE, Token.class);
-            }
-        });
+        }, false, false);
     }
 }
