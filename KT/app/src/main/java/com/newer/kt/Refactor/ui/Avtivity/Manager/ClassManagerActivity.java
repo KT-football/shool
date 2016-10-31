@@ -1,14 +1,20 @@
 package com.newer.kt.Refactor.ui.Avtivity.Manager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.frame.app.base.activity.BaseActivity;
+import com.frame.app.utils.LogUtils;
 import com.newer.kt.R;
+import com.newer.kt.Refactor.ui.Avtivity.CaptureActivity;
+import com.newer.kt.Refactor.ui.Avtivity.MyClassActivity;
+import com.newer.kt.Refactor.ui.Avtivity.UserInfoActivity;
 import com.newer.kt.Refactor.ui.Fragment.Manager.BigClassFramgnt;
 import com.newer.kt.Refactor.ui.Fragment.Manager.ClassFragment;
 import com.newer.kt.Refactor.ui.Fragment.Manager.FootFramgnet;
@@ -56,9 +62,12 @@ public class ClassManagerActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         mList.add(new ManagerFragment());
-        mList.add(new ClassFragment());
-        mList.add(new BigClassFramgnt());
-        mList.add(new FootFramgnet());
+//        mList.add(new ClassFragment());
+//        mList.add(new BigClassFramgnt());
+//        mList.add(new FootFramgnet());
+        mTv_class.setVisibility(View.GONE);
+        mTv_foot.setVisibility(View.GONE);
+        mTv_bigclass.setVisibility(View.GONE);
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -86,7 +95,7 @@ public class ClassManagerActivity extends BaseActivity {
 
             }
         });
-        mViewPager.setOffscreenPageLimit(3);
+//        mViewPager.setOffscreenPageLimit(3);
 
     }
 
@@ -142,6 +151,23 @@ public class ClassManagerActivity extends BaseActivity {
                 mTv_manager.setBackgroundResource(R.drawable.bg_trans);
                 mTv_foot.setBackgroundResource(R.drawable.bg_grey_shape);
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        LogUtils.e("onActivityResult");
+        if (requestCode == 3) {
+            LogUtils.e("requestCode == 3");
+            if (resultCode == 3) {
+                Bundle bundle = data.getBundleExtra("bundle");
+                final String result = bundle.getString(CaptureActivity.BUNDLE_SCAN_RESULT);
+                Intent intent = new Intent(getThis(), UserInfoActivity.class);
+                intent.putExtra(MyClassActivity.EXTRA_USER_ID, result);
+                intent.putExtra("user_code", 1);
+                startActivity(intent);
+            }
         }
     }
 }

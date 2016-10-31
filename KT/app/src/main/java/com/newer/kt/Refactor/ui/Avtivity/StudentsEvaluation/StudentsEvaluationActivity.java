@@ -145,14 +145,16 @@ public class StudentsEvaluationActivity extends BaseToolBarActivity3 {
 
     @OnClick(R.id.layout_select_class_add_class)
     public void body() {
-        Intent intent = new Intent(getThis(), BodyTestActivity.class);
-        startActivity(intent);
+        showToast("敬请期待~");
+//        Intent intent = new Intent(getThis(), BodyTestActivity.class);
+//        startActivity(intent);
     }
 
     @OnClick(R.id.layout_select_class_add_student)
     public void footBall() {
-        Intent intent = new Intent(getThis(), FootBallTraiActivity.class);
-        startActivity(intent);
+        showToast("敬请期待~");
+//        Intent intent = new Intent(getThis(), FootBallTraiActivity.class);
+//        startActivity(intent);
     }
 
 }

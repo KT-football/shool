@@ -1,5 +1,6 @@
 package com.newer.kt.Refactor.ui.Fragment.Manager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.frame.app.base.fragment.BaseFragment;
 import com.newer.kt.R;
 import com.newer.kt.Refactor.adapter.ClassManagerAdapter;
+import com.newer.kt.Refactor.ui.Avtivity.CaptureActivity;
 import com.newer.kt.Refactor.ui.Avtivity.Manager.ClassManagerActivity;
 import com.newer.kt.entity.User;
 
@@ -52,6 +54,7 @@ public class ManagerFragment extends BaseFragment {
         mLinear_all = getViewById(R.id.linear_all);
         mLinear_nv = getViewById(R.id.linear_nv);
         mLinear_nan = getViewById(R.id.linear_nan);
+        mBtn_add = getViewById(R.id.btn_add);
 
 
     }
@@ -97,6 +100,14 @@ public class ManagerFragment extends BaseFragment {
                 mAdapter.setCheck(mTag, mList);
             }
         });
+        mBtn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getThis(), CaptureActivity.class);
+                intent.putExtra(CaptureActivity.CAPTURE_CODE, 3);
+                startActivityForResult(intent, 3);
+            }
+        });
     }
 
     @Override
@@ -119,4 +130,5 @@ public class ManagerFragment extends BaseFragment {
     protected void initHandler(Message msg) {
 
     }
+
 }
