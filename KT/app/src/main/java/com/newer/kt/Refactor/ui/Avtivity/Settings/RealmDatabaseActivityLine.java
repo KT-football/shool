@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.frame.app.utils.GsonTools;
+import com.frame.app.utils.LogUtils;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.realm.implementation.RealmLineData;
@@ -24,7 +25,13 @@ import com.newer.kt.Refactor.Entitiy.BattlesStatisticsBean;
 import com.newer.kt.Refactor.Entitiy.FinishedCount;
 import com.newer.kt.Refactor.Entitiy.FinishedCountBean;
 import com.newer.kt.Refactor.KTApplication;
+import com.newer.kt.Refactor.Net.CallServer;
+import com.newer.kt.Refactor.Net.HttpListener;
 import com.newer.kt.Refactor.ui.Avtivity.ListActivity;
+import com.yolanda.nohttp.NoHttp;
+import com.yolanda.nohttp.RequestMethod;
+import com.yolanda.nohttp.rest.Request;
+import com.yolanda.nohttp.rest.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +77,9 @@ public class RealmDatabaseActivityLine extends RealmBaseActivity {
                         startActivity(PhysicalEducationListActivity.class);
                         break;
                     case 2:
-                        startActivity(BigRoomListActivity.class);
+                        Intent intent1 = new Intent(getThis(), BigRoomListActivity.class);
+                        intent1.putExtra("club_id", getIntent().getStringExtra("club_id"));
+                        startActivity(intent1);
                         break;
                     case 3:
                         Intent intent = new Intent(getThis(), ListActivity.class);
@@ -84,39 +93,130 @@ public class RealmDatabaseActivityLine extends RealmBaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        showLoadingDiaglog();
         code = getIntent().getIntExtra(Constants.REALMDATABASEACTIVITYLINE_TITLE, 1);
         String title = "";
         switch (code) {
             case 1:
                 title = "体育课统计";
-                FinishedCount ss1 = GsonTools.changeGsonToBean(KTApplication.getGymCourseRecordsStatistics(), FinishedCount.class);
-                list = ss1.list;
+                getGymCourseRecordsStatistics();
+
                 break;
             case 2:
                 title = "大课间统计";
-                FinishedCount ss2 = GsonTools.changeGsonToBean(KTApplication.getBigClassroomRecordsStatistics(), FinishedCount.class);
-                list = ss2.list;
+                getBigClassroomRecordsStatistics();
                 break;
             case 3:
                 title = "赛事统计";
-                BattlesStatistics ss3 = GsonTools.changeGsonToBean(KTApplication.getBattlesStatistics(), BattlesStatistics.class);
-                list = new ArrayList<>();
-                for (int x = 0; x < ss3.list.size(); x++) {
-                    BattlesStatisticsBean bean = ss3.list.get(x);
-                    FinishedCountBean finishedCountBean = new FinishedCountBean();
-                    finishedCountBean.date = bean.date;
-                    finishedCountBean.finished_count = bean.battles_count;
-                    list.add(finishedCountBean);
-                }
+                getBattlesStatistics();
                 break;
         }
         setToolBarTitle(title);
     }
 
+
+    /**
+     * 学校赛事统计(get)
+     */
+    private void getBattlesStatistics() {
+        Request<String> request = NoHttp.createStringRequest(Constants.BATTLES_STATISTICS, RequestMethod.GET);
+        request.add("club_id", getIntent().getStringExtra("club_id"));
+        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                LogUtils.w("getBattlesStatistics");
+                if (response != null && response.get() != null && response.get().contains("success")) {
+                    BattlesStatistics ss3 = GsonTools.changeGsonToBean(response.get(), BattlesStatistics.class);
+                    list = new ArrayList<>();
+                    for (int x = 0; x < ss3.list.size(); x++) {
+                        BattlesStatisticsBean bean = ss3.list.get(x);
+                        FinishedCountBean finishedCountBean = new FinishedCountBean();
+                        finishedCountBean.date = bean.date;
+                        finishedCountBean.finished_count = bean.battles_count;
+                        list.add(finishedCountBean);
+                    }
+                    toShow();
+                } else {
+
+                }
+                closeLoadingDialog();
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                closeLoadingDialog();
+            }
+        }, false, false);
+    }
+
+
+    /**
+     * 学校体育课上课统计(get)
+     */
+    private void getGymCourseRecordsStatistics() {
+        Request<String> request = NoHttp.createStringRequest(Constants.GYM_COURSE_RECORDS_STATISTICS, RequestMethod.GET);
+        request.add("club_id", getIntent().getStringExtra("club_id"));
+        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                if (response != null && response.get() != null && response.get().contains("success")) {
+                    FinishedCount ss1 = GsonTools.changeGsonToBean(response.get(), FinishedCount.class);
+                    list = ss1.list;
+                    toShow();
+                } else {
+                }
+                closeLoadingDialog();
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                LogUtils.w("getGymCourseRecordsStatistics = onFailed");
+                closeLoadingDialog();
+            }
+        }, false, false);
+    }
+
+
+    /**
+     * 学校大课间上课统计(get)
+     */
+    private void getBigClassroomRecordsStatistics() {
+        Request<String> request = NoHttp.createStringRequest(Constants.BIG_CLASSROOM_RECORDS_STATISTICS, RequestMethod.GET);
+        request.add("club_id", getIntent().getStringExtra("club_id"));
+        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                LogUtils.w("getBigClassroomRecordsStatistics");
+                if (response != null && response.get() != null && response.get().contains("success")) {
+                    FinishedCount ss2 = GsonTools.changeGsonToBean(response.get(), FinishedCount.class);
+                    list = ss2.list;
+                    toShow();
+                } else {
+                }
+                closeLoadingDialog();
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                LogUtils.w("getBigClassroomRecordsStatistics = onFailed");
+                closeLoadingDialog();
+            }
+        }, false, false);
+    }
+
+
     @Override
     public void onResume() {
         super.onResume(); // setup realm
 
+
+    }
+
+
+    private void toShow() {
         // write some demo-data into the realm.io database
         writeToDB();
 

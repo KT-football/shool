@@ -19,7 +19,7 @@ android {
         applicationId "com.newer.kt"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 4
+        versionCode 5
         versionName "3.2.0"
         multiDexEnabled true
 

@@ -56,19 +56,13 @@ public class BigRoomListActivity extends BaseRecyclerViewNoRefresh {
 
     @Override
     protected void setListener() {
-        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(ViewGroup parent, View view, int position) {
-                getBigClassroomRecord(list.get(position).id);
-//                showDialogToast(list.get(position).id);
-            }
-        });
+
     }
 
     private void getBigClassroomRecord(final String id) {
         showLoadingDiaglog();
         Request<String> request = NoHttp.createStringRequest(Constants.BIG_CLASSROOM_RECORD, RequestMethod.GET);
-        request.add("club_id",KTApplication.getUserLogin().club_id+"");
+        request.add("club_id",getIntent().getStringExtra("club_id")+"");
         request.add("big_classroom_record_id", id);
         request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
         CallServer.getRequestInstance().add(this, 0, request, new HttpListener<String>() {
@@ -96,24 +90,47 @@ public class BigRoomListActivity extends BaseRecyclerViewNoRefresh {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        String data = KTApplication.getBigClassroomRecords();
-        list = new ArrayList<>();
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            JSONArray jsonArray = jsonObject.getJSONArray("big_classroom_records");
-            for(int x = 0;x < jsonArray.length();x++){
-                BigClassroomRecords bean = GsonTools.changeGsonToBean(jsonArray.get(x).toString(),BigClassroomRecords.class);
-                list.add(bean);
+        showLoadingDiaglog();
+        Request<String> request = NoHttp.createStringRequest(Constants.BIG_CLASSROOM_RECORDS, RequestMethod.GET);
+        request.add("club_id", getIntent().getStringExtra("club_id"));
+        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
+            @Override
+            public void onSucceed(int what, Response<String> response) {
+                String data = response.get();
+                list = new ArrayList<>();
+                try {
+                    JSONObject jsonObject = new JSONObject(data);
+                    JSONArray jsonArray = jsonObject.getJSONArray("big_classroom_records");
+                    for (int x = 0; x < jsonArray.length(); x++) {
+                        BigClassroomRecords bean = GsonTools.changeGsonToBean(jsonArray.get(x).toString(), BigClassroomRecords.class);
+                        list.add(bean);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                LinearLayoutManager ll = new LinearLayoutManager(getThis());
+                adapter = new BigRoomListAdapter(getRecyclerView(), list);
+                ll.setOrientation(LinearLayoutManager.VERTICAL);
+                setLayoutManager(ll);
+                getRecyclerView().addItemDecoration(new DividerItemDecoration(getThis(), ll.getOrientation()));
+                setAdapter(adapter);
+                closeLoadingDialog();
+                adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+                    @Override
+                    public void onItemClick(ViewGroup parent, View view, int position) {
+                        getBigClassroomRecord(list.get(position).id);
+//                showDialogToast(list.get(position).id);
+                    }
+                });
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        LinearLayoutManager ll = new LinearLayoutManager(getThis());
-        adapter = new BigRoomListAdapter(getRecyclerView(), list);
-        ll.setOrientation(LinearLayoutManager.VERTICAL);
-        setLayoutManager(ll);
-        getRecyclerView().addItemDecoration(new DividerItemDecoration(this,ll.getOrientation()));
-        setAdapter(adapter);
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                LogUtils.w("getBigClassroomRecords = onFailed");
+                closeLoadingDialog();
+            }
+        }, false, false);
 
     }
 

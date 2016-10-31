@@ -78,6 +78,7 @@ public class CampusStatisticsActivity extends BaseToolBarActivity2 {
             public void onClick(View v) {
                 Intent intent = new Intent(getThis(),RealmDatabaseActivityLine.class);
                 intent.putExtra(Constants.REALMDATABASEACTIVITYLINE_TITLE,1);
+                intent.putExtra("club_id",getIntent().getStringExtra("club_id"));
                 startActivity(intent);
             }
         });
@@ -86,6 +87,7 @@ public class CampusStatisticsActivity extends BaseToolBarActivity2 {
             public void onClick(View v) {
                 Intent intent = new Intent(getThis(),RealmDatabaseActivityLine.class);
                 intent.putExtra(Constants.REALMDATABASEACTIVITYLINE_TITLE,2);
+                intent.putExtra("club_id",getIntent().getStringExtra("club_id"));
                 startActivity(intent);
             }
         });
@@ -94,6 +96,7 @@ public class CampusStatisticsActivity extends BaseToolBarActivity2 {
             public void onClick(View v) {
                 Intent intent = new Intent(getThis(),RealmDatabaseActivityLine.class);
                 intent.putExtra(Constants.REALMDATABASEACTIVITYLINE_TITLE,3);
+                intent.putExtra("club_id",getIntent().getStringExtra("club_id"));
                 startActivity(intent);
             }
         });
