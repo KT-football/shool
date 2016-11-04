@@ -100,8 +100,7 @@ public class SettingsFragment extends BaseFragment {
         item_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("敬请期待~");
-//                startActivity(SchoolEquipmentActivity.class);
+                startActivity(SchoolEquipmentActivity.class);
             }
         });
         item_3.setOnClickListener(new View.OnClickListener() {

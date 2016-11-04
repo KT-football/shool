@@ -18,6 +18,7 @@ import com.newer.kt.Refactor.Constants;
 import com.newer.kt.Refactor.Entitiy.StudentsEvaluation;
 import com.newer.kt.Refactor.Net.CallServer;
 import com.newer.kt.Refactor.Net.HttpListener;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.Refactor.view.wheelview.WheelView;
 import com.newer.kt.Refactor.view.wheelview.adapter.ArrayWheelAdapter;
 import com.newer.kt.entity.User;
@@ -260,7 +261,7 @@ public class FootBallTestAdapter extends BaseExpandableListAdapter {
         request.add("user_id", id);
         request.add("school_football_skill_id", school_football_skill_id);
         request.add("content", content);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.SAVE_USER_FOOTB_TEST));
         CallServer.getRequestInstance().add((BaseActivity) mContext, 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {

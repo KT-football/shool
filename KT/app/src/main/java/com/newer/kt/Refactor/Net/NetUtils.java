@@ -8,6 +8,7 @@ import com.frame.app.net.okhttp.request.OkHttpGetRequest;
 import com.newer.kt.Refactor.KTApplication;
 import com.newer.kt.Refactor.OkHttpClient;
 import com.newer.kt.Refactor.utils.CommonUtil;
+import com.newer.kt.Refactor.utils.MD5;
 
 import java.io.File;
 import java.util.Map;
@@ -65,7 +66,7 @@ public class NetUtils {
         if (0 == CommonUtil.isNetworkAvailable(KTApplication.getContext())) {
             return false;
         } else {
-            params.put("authenticity_token","K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+            params.put("authenticity_token", MD5.getToken(url));
             http.getAsyn(url, tag, params, callback);
         }
         return true;
@@ -76,7 +77,7 @@ public class NetUtils {
         if (0 == CommonUtil.isNetworkAvailable(KTApplication.getContext())) {
             return false;
         } else {
-            params.put("authenticity_token","K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+            params.put("authenticity_token",MD5.getToken(url));
             http.upload(url, tag, params, files,callback);
         }
         return true;

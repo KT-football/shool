@@ -21,6 +21,7 @@ import com.newer.kt.Refactor.Net.HttpListener;
 import com.newer.kt.Refactor.ui.Avtivity.ListActivity;
 import com.newer.kt.Refactor.ui.Avtivity.MyClassActivity;
 import com.newer.kt.Refactor.ui.Avtivity.UserInfoActivity;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.Refactor.view.wheelview.WheelView;
 import com.newer.kt.Refactor.view.wheelview.adapter.ArrayWheelAdapter;
 import com.newer.kt.adapter.EvaluateFragmentAdapter;
@@ -242,7 +243,7 @@ public class ClassManagerAdapter extends RecyclerView.Adapter<ClassManagerAdapte
         request.add("user_id", id);
         request.add("height", height);
         request.add("weight", weight);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.SAVE_USER_HEIGHT_WEIGHT));
         CallServer.getRequestInstance().add((BaseActivity) mContext, 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {

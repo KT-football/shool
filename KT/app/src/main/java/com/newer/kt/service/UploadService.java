@@ -22,6 +22,7 @@ import com.newer.kt.Refactor.ui.Avtivity.ListActivity;
 import com.newer.kt.Refactor.ui.Avtivity.LoginActivity;
 import com.newer.kt.Refactor.db.SideAandBDaoHelper;
 import com.newer.kt.Refactor.db.VcrPathDaoHelper;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.entity.Side;
 import com.newer.kt.Refactor.Entitiy.Token;
 import com.newer.kt.url.VolleyUtil;
@@ -57,7 +58,7 @@ public class UploadService extends Service {
         uploader = YoukuUploader.getInstance(CLIENT_ID, CLIENT_SECRET, getApplicationContext());
 
         List<SideAandB> adList = SideAandBDaoHelper.getInstance().getAllData();
-        for(SideAandB s : adList){
+        for (SideAandB s : adList) {
             String path = s.getPath();
             File file = new File(path);
             if (file.exists()) {
@@ -73,7 +74,7 @@ public class UploadService extends Service {
 
         public MyThered(int current) {
             this.current = current;
-            Log.d("aaaaaaaaaa","aaaaaaaaaaa");
+            Log.d("aaaaaaaaaa", "aaaaaaaaaaa");
         }
 
         @Override
@@ -84,8 +85,8 @@ public class UploadService extends Service {
         private void initData() {
             long id = PreferenceManager.getDefaultSharedPreferences(UploadService.this).getLong(LoginActivity.PRE_CURRENT_USER_ID, 0);
             String club_id = String.valueOf(id);
-            String url = Constants.KTHOST+"users/get_role?user_id=" +
-                    club_id + "&authenticity_token=K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8";
+            String url = Constants.KTHOST + "users/get_role?user_id=" +
+                    club_id + "&authenticity_token=" + MD5.getToken(Constants.KTHOST + "users/get_role");
             JsonRequest jsonRequest = new JsonObjectRequest(url,
                     null,
                     new Response.Listener<JSONObject>() {
@@ -224,6 +225,7 @@ public class UploadService extends Service {
         //提交数据到服务器
         private void doCommitData(long club_id, long user_id, long game_id, String code, int game_type, String video_id, String time, Side side_a, Side side_b) {
             JSONObject jsonObject = new JSONObject();
+            String uri = Constants.KTHOST + "offline/upload_battle";
             try {
                 jsonObject.put("club_id", club_id);
                 jsonObject.put("user_id", user_id);
@@ -258,11 +260,10 @@ public class UploadService extends Service {
                 jsonObject.put("side_a", side_aa);
                 jsonObject.put("side_b", side_bb);
 
-                jsonObject.put("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+                jsonObject.put("authenticity_token", MD5.getToken(uri));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String uri = Constants.KTHOST+"offline/upload_battle";
             JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(
                     Request.Method.POST,
                     uri,
@@ -283,10 +284,10 @@ public class UploadService extends Service {
         }
 
         private void doSaveOk(SideAandB sb) {//上传成功
-            VcrPathDaoHelper.getInstance().addData(initVcrPath(sb,true));
+            VcrPathDaoHelper.getInstance().addData(initVcrPath(sb, true));
         }
 
-        private VcrPath initVcrPath(SideAandB sb,boolean isSuccess){
+        private VcrPath initVcrPath(SideAandB sb, boolean isSuccess) {
             VcrPath vcrPath = new VcrPath();
             vcrPath.setUsers(sb.getUsers());
             vcrPath.setAdd_scores(sb.getAdd_scores());

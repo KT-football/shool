@@ -102,8 +102,7 @@ public class FootBallManagerAdapter extends BaseAdapter {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, FootBallDetailActivity.class);
-                    mContext.startActivity(intent);
+
                 }
             });
         }

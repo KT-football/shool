@@ -66,8 +66,7 @@ public class HelpActivity extends BaseToolBarActivity2 {
      */
     @OnClick(R.id.layout_voide_center)
     public void video() {
-//        startActivity(VideoCenterActivity.class);
-        showToast("敬请期待~");
+        startActivity(VideoCenterActivity.class);
 
     }
 
@@ -76,8 +75,7 @@ public class HelpActivity extends BaseToolBarActivity2 {
      */
     @OnClick(R.id.layout_how_user)
     public void use() {
-//        startActivity(UseActivity.class);
-        showToast("敬请期待~");
+        startActivity(UseActivity.class);
 
     }
 
@@ -86,8 +84,7 @@ public class HelpActivity extends BaseToolBarActivity2 {
      */
     @OnClick(R.id.layout_question)
     public void question() {
-//        startActivity(QuestionActivity.class);
-        showToast("敬请期待~");
+        startActivity(QuestionActivity.class);
     }
 
     /**
@@ -95,8 +92,7 @@ public class HelpActivity extends BaseToolBarActivity2 {
      */
     @OnClick(R.id.layout_user_feel)
     public void feel() {
-//        startActivity(UserFeelActivity.class);
-        showToast("敬请期待~");
+        startActivity(UserFeelActivity.class);
     }
 
     /**

@@ -33,6 +33,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.newer.kt.R;
 import com.newer.kt.Refactor.Constants;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.adapter.SearchAdapter;
 import com.newer.kt.entity.POI;
 import com.newer.kt.entity.PoiResult;
@@ -212,7 +213,7 @@ public class SearchAddressActivity extends BaseActivity {
                     e.printStackTrace();
                 }
                 String uri = Constants.KTHOST+"games/search_place_by_baidu?" +
-                        "region=" + address + "&query=" + poi + "&authenticity_token=K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8";
+                        "region=" + address + "&query=" + poi + "&authenticity_token="+ MD5.getToken(Constants.KTHOST+"games/search_place_by_baidu");
                 StringRequest request = new StringRequest(
                         uri,
                         new Response.Listener<String>() {

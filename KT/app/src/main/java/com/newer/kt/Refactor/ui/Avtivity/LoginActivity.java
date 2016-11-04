@@ -28,6 +28,7 @@ import com.google.gson.reflect.TypeToken;
 import com.newer.kt.R;
 import com.newer.kt.Refactor.Constants;
 import com.newer.kt.Refactor.KTApplication;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.entity.UserMsg;
 import com.newer.kt.myClass.MyAlertDialog;
 import com.newer.kt.url.VolleyUtil;
@@ -88,7 +89,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         try {
             jsonObject.put("account", user);
             jsonObject.put("password", password);
-            jsonObject.put("authenticity_token","K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+            jsonObject.put("authenticity_token", MD5.getToken(url));
         } catch (JSONException e) {
             e.printStackTrace();
         }

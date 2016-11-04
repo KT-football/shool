@@ -18,6 +18,7 @@ import com.newer.kt.Refactor.KTApplication;
 import com.newer.kt.Refactor.Net.CallServer;
 import com.newer.kt.Refactor.Net.HttpListener;
 import com.newer.kt.Refactor.adapter.BigRoomListAdapter;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.Refactor.view.DividerItemDecoration;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
@@ -64,7 +65,7 @@ public class BigRoomListActivity extends BaseRecyclerViewNoRefresh {
         Request<String> request = NoHttp.createStringRequest(Constants.BIG_CLASSROOM_RECORD, RequestMethod.GET);
         request.add("club_id",getIntent().getStringExtra("club_id")+"");
         request.add("big_classroom_record_id", id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.BIG_CLASSROOM_RECORD));
         CallServer.getRequestInstance().add(this, 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -93,7 +94,7 @@ public class BigRoomListActivity extends BaseRecyclerViewNoRefresh {
         showLoadingDiaglog();
         Request<String> request = NoHttp.createStringRequest(Constants.BIG_CLASSROOM_RECORDS, RequestMethod.GET);
         request.add("club_id", getIntent().getStringExtra("club_id"));
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.BIG_CLASSROOM_RECORDS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {

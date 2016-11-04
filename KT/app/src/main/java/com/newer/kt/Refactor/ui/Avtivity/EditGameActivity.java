@@ -28,6 +28,7 @@ import com.android.volley.toolbox.JsonRequest;
 import com.frame.app.base.activity.BaseActivity;
 import com.newer.kt.R;
 import com.newer.kt.Refactor.Constants;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.entity.Clubs;
 import com.newer.kt.entity.CountryCities;
 import com.newer.kt.entity.EditGameData;
@@ -159,7 +160,7 @@ public class EditGameActivity extends BaseActivity implements View.OnClickListen
         String game_id = String.valueOf(gameId);
         String url = Constants.KTHOST+"games/edit?game_id="
                 + game_id + "&user_id=" + uer_id +
-                "&authenticity_token=K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8";
+                "&authenticity_token="+MD5.getToken(Constants.KTHOST+"games/edit");
         JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(
                 url,
                 null,
@@ -390,7 +391,7 @@ public class EditGameActivity extends BaseActivity implements View.OnClickListen
                 jsonObject.put("introduction",updataGameData.introduction);
                 jsonObject.put("traffic_intro",updataGameData.traffic_intro);
                 jsonObject.put("arround_intro",updataGameData.arround_intro);
-                jsonObject.put("authenticity_token","K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+                jsonObject.put("authenticity_token", MD5.getToken(uri));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

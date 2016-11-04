@@ -1,5 +1,6 @@
 package com.newer.kt.Refactor.ui.Avtivity.StudentsEvaluation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.frame.app.base.activity.BaseToolBarActivity3;
 import com.newer.kt.R;
+import com.newer.kt.Refactor.ui.Avtivity.Manager.FootBallDetailActivity;
 import com.newer.kt.adapter.FooBallAdapter;
 import com.newer.kt.adapter.FootBean;
 import com.newer.kt.adapter.SeleteFootBean;
@@ -114,7 +116,8 @@ public class FootBallTestActivity extends BaseToolBarActivity3 {
 
     @OnClick(R.id.tv_commit)
     public void commit() {
-
+        Intent intent = new Intent(getThis(), FootBallDetailActivity.class);
+        startActivity(intent);
     }
 
     @Subscribe

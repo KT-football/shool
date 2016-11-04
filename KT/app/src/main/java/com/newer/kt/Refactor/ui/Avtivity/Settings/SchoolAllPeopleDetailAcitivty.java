@@ -32,6 +32,7 @@ import com.newer.kt.Refactor.Net.CallServer;
 import com.newer.kt.Refactor.Net.HttpListener;
 import com.newer.kt.Refactor.ui.Avtivity.ClubDataActivity3;
 import com.newer.kt.Refactor.ui.Avtivity.LoginActivity;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.entity.AllPeopleBean;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
@@ -132,7 +133,7 @@ public class SchoolAllPeopleDetailAcitivty extends BaseActivity {
             request.add("area_type", getIntent().getStringExtra("area_type"));
             request.add("area_name", getIntent().getStringExtra("area_name"));
         }
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.SCHOOL_STATISTICS_Detail));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {

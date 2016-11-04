@@ -30,6 +30,7 @@ import com.newer.kt.Business.ServiceLoadBusiness;
 import com.newer.kt.R;
 import com.newer.kt.Refactor.Constants;
 import com.newer.kt.Refactor.Entitiy.UserInfo;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.Refactor.view.CircleImageView;
 import com.newer.kt.Refactor.view.wheelview.OnWheelScrollListener;
 import com.newer.kt.Refactor.view.wheelview.WheelView;
@@ -419,7 +420,6 @@ public class UserInfoActivity extends BaseActivity {
 //        });
 
         Map<String, String> map = new HashMap<>();
-        map.put("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
         map.put("user_id", String.valueOf(userId));
         map.put("club_id", String.valueOf(clubId));
         map.put("school_class_id", school_class_id);
@@ -427,6 +427,7 @@ public class UserInfoActivity extends BaseActivity {
         map.put("birthday", birthday);
         map.put("phone", phone);
         map.put("nickname", name);
+        map.put("school_club_id",String.valueOf(userId));
 //        map.put("avatar", avatar);
 
         ServiceLoadBusiness.getInstance().updateUserInfo(getThis(), getTAG(), map, imageFile);

@@ -60,6 +60,7 @@ import com.newer.kt.Refactor.ui.Fragment.Main.ManagerFragment;
 import com.newer.kt.Refactor.ui.Fragment.Main.SchoolFragment;
 import com.newer.kt.Refactor.ui.Fragment.Main.SettingsFragment;
 import com.newer.kt.Refactor.utils.CommonUtil;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.Refactor.utils.UpdateAppUtils;
 import com.newer.kt.Refactor.view.WaterwaveProgress.WaterWaveProgress;
 import com.newer.kt.entity.AddClassData;
@@ -143,13 +144,13 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     private void isNeedUpdate() {
         Request<String> request = NoHttp.createStringRequest(Constants.CHECK_APP_VERSION, RequestMethod.GET);
         request.add("type", "android");
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.CHECK_APP_VERSION));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
                 LogUtils.w("loadClubDataCount");
                 final VersionBean versionBean = GsonTools.changeGsonToBean(response.get(), VersionBean.class);
-                if (versionBean != null&&versionBean.getResponse().equals("success")) {
+                if (versionBean != null && versionBean.getResponse().equals("success")) {
                     if (CommonUtil.getVersion(getThis()) < versionBean.getAndroid_version()) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getThis());
                         builder.setCancelable(false);
@@ -299,8 +300,13 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.content, movieFragment)
                 .add(R.id.content, tvFragment)
+                .add(R.id.content, varietyFragment)
+                .add(R.id.content, cartoonFragment)
                 .hide(tvFragment)
-                .show(movieFragment)
+                .hide(movieFragment)
+                .hide(varietyFragment)
+                .hide(cartoonFragment)
+                .show(fragments.get(currentIndex))
                 .commit();
     }
 
@@ -546,8 +552,8 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
      */
     private void loadAddClassData(final String club_id) {
 //        ServiceLoadBusiness.getInstance().getClubSchoolClassData(getThis(), club_id);
-        NoHttp.setDefaultReadTimeout(60*1000);
-        Request<String> request = NoHttp.createStringRequest(Constants.GET_CLUB_SCHOOL_CLASS_DATA+club_id, RequestMethod.GET);
+        NoHttp.setDefaultReadTimeout(60 * 1000);
+        Request<String> request = NoHttp.createStringRequest(Constants.GET_CLUB_SCHOOL_CLASS_DATA + club_id, RequestMethod.GET);
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
 
             @Override
@@ -715,7 +721,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     private void getClassInfo(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.GET_SCHOOL_COURSE_DATA_CLASSES, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GET_SCHOOL_COURSE_DATA_CLASSES));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -743,7 +749,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     private void getSchoolGymCourseCombinations(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.GET_SCHOOL_GYM_COURSE_COMBINATIONS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GET_SCHOOL_GYM_COURSE_COMBINATIONS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -771,7 +777,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     private void getBigClassRooms(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.GET_SCHOOL_COURSE_DATA_BIG_CLASSROOMS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token",  MD5.getToken(Constants.GET_SCHOOL_COURSE_DATA_BIG_CLASSROOMS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -799,7 +805,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     private void getTotleStatistics(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.TOTLE_STATISTICS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.TOTLE_STATISTICS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -827,7 +833,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     private void getBattlesStatistics(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.BATTLES_STATISTICS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.BATTLES_STATISTICS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -855,7 +861,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     private void getBigClassroomRecordsStatistics(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.BIG_CLASSROOM_RECORDS_STATISTICS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.BIG_CLASSROOM_RECORDS_STATISTICS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -884,7 +890,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     private void getGymCourseRecordsStatistics(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.GYM_COURSE_RECORDS_STATISTICS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GYM_COURSE_RECORDS_STATISTICS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -914,7 +920,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     private void getGymCourseTeacherFinishedStatistics(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.GYM_COURSE_TEACHER_FINISHED_STATISTICS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GYM_COURSE_TEACHER_FINISHED_STATISTICS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -943,7 +949,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     private void getBigClassroomRecords(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.BIG_CLASSROOM_RECORDS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token",  MD5.getToken(Constants.BIG_CLASSROOM_RECORDS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -1084,6 +1090,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
      * 1.获取添加班级数据
      * 2.保存用户身体素质测评 (post)
      * 3.保存用户身体素质测评 (post)
+     *
      * @param mainEvent
      */
     @Subscribe

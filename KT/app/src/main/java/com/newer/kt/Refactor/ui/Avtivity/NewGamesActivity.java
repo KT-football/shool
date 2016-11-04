@@ -33,6 +33,7 @@ import com.ktfootball.www.dao.Games;
 import com.newer.kt.R;
 import com.newer.kt.Refactor.Constants;
 import com.newer.kt.Refactor.db.GamesDaoHelper;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.entity.Clubs;
 import com.newer.kt.entity.CommitNewGame;
 import com.newer.kt.entity.CountryCities;
@@ -169,7 +170,7 @@ public class NewGamesActivity extends BaseActivity implements View.OnClickListen
         long uer_id = PreferenceManager.getDefaultSharedPreferences(this).getLong(LoginActivity.PRE_CURRENT_USER_ID,0);
         String id = String.valueOf(uer_id);
         String url = Constants.KTHOST+"games/new?user_id=" + id +
-                "&authenticity_token=K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8";
+                "&authenticity_token="+MD5.getToken(Constants.KTHOST+"games/new");
         JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(
                 url,
                 null,
@@ -368,7 +369,7 @@ public class NewGamesActivity extends BaseActivity implements View.OnClickListen
                 jsonObject.put("introduction",commitNewGame.introduction);
                 jsonObject.put("traffic_intro",commitNewGame.traffic_intro);
                 jsonObject.put("arround_intro",commitNewGame.arround_intro);
-                jsonObject.put("authenticity_token","K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+                jsonObject.put("authenticity_token", MD5.getToken(uri));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

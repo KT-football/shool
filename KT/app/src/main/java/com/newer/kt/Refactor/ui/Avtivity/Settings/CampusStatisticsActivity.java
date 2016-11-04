@@ -21,6 +21,7 @@ import com.newer.kt.Refactor.Entitiy.TotleStatistics;
 import com.newer.kt.Refactor.KTApplication;
 import com.newer.kt.Refactor.Net.CallServer;
 import com.newer.kt.Refactor.Net.HttpListener;
+import com.newer.kt.Refactor.utils.MD5;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.rest.Request;
@@ -122,7 +123,7 @@ public class CampusStatisticsActivity extends BaseToolBarActivity2 {
     private void getTotleStatistics(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.TOTLE_STATISTICS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.TOTLE_STATISTICS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {

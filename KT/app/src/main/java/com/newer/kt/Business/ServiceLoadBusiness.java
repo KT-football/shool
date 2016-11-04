@@ -16,6 +16,7 @@ import com.newer.kt.Refactor.Net.CallServer;
 import com.newer.kt.Refactor.Net.HttpListener;
 import com.newer.kt.Refactor.Net.NetUtils;
 import com.newer.kt.Refactor.utils.CommonUtil;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.entity.ClubDataCount;
 import com.newer.kt.myClass.MyAlertDialog;
 import com.squareup.okhttp.Request;
@@ -71,7 +72,7 @@ public class ServiceLoadBusiness extends BaseBusiness {
     public void getClubData(final BaseActivity act, String club_id) {
         final com.yolanda.nohttp.rest.Request<String> request = NoHttp.createStringRequest(Constants.GET_CLUB_DATA, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GET_CLUB_DATA));
         CallServer.getRequestInstance().add(act, 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -99,7 +100,7 @@ public class ServiceLoadBusiness extends BaseBusiness {
 
         final com.yolanda.nohttp.rest.Request<String> request = NoHttp.createStringRequest(Constants.GET_CLUB_DATA_COUNT, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GET_CLUB_DATA_COUNT));
         CallServer.getRequestInstance().add(act, 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -131,7 +132,7 @@ public class ServiceLoadBusiness extends BaseBusiness {
     public void getClubSchoolClassData(final BaseActivity act, String club_id) {
         final com.yolanda.nohttp.rest.Request<String> request = NoHttp.createStringRequest(Constants.GET_CLUB_SCHOOL_CLASS_DATA, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GET_CLUB_SCHOOL_CLASS_DATA));
         CallServer.getRequestInstance().add(act, 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -155,7 +156,7 @@ public class ServiceLoadBusiness extends BaseBusiness {
      */
     public void getUserInfo(final BaseActivity act, String tag, Map<String, String> param) {
         final com.yolanda.nohttp.rest.Request<String> request = NoHttp.createStringRequest(Constants.GET_USER_INFO, RequestMethod.GET);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GET_USER_INFO));
         for (String key : param.keySet()) {
             request.add(key, param.get(key));
         }
@@ -194,7 +195,7 @@ public class ServiceLoadBusiness extends BaseBusiness {
     public boolean getRole(final BaseActivity act, String tag, Map<String, String> param) {
 
         final com.yolanda.nohttp.rest.Request<String> request = NoHttp.createStringRequest(Constants.GET_ROLE, RequestMethod.GET);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GET_ROLE));
         for (String key : param.keySet()) {
             request.add(key, param.get(key));
         }
@@ -231,7 +232,7 @@ public class ServiceLoadBusiness extends BaseBusiness {
      */
     public void updateUserInfo(final BaseActivity act, String tag, Map<String, String> param, File files) {
         final com.yolanda.nohttp.rest.Request<String> request = NoHttp.createStringRequest(Constants.UPDATE_USER_INFO, RequestMethod.POST);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.UPDATE_USER_INFO));
         for (String key : param.keySet()) {
             request.add(key, param.get(key));
         }

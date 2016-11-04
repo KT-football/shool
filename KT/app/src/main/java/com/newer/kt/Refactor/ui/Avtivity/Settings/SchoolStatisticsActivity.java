@@ -33,6 +33,7 @@ import com.newer.kt.Refactor.Net.CallServer;
 import com.newer.kt.Refactor.Net.HttpListener;
 import com.newer.kt.Refactor.ui.Avtivity.ClubDataActivity3;
 import com.newer.kt.Refactor.ui.Avtivity.LoginActivity;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.Refactor.view.RingView;
 import com.newer.kt.entity.AddClassData;
 import com.newer.kt.entity.AllPeopleBean;
@@ -223,7 +224,7 @@ public class SchoolStatisticsActivity extends BaseActivity {
             request.add("area_type", mType);
             request.add("area_name", area_name);
         }
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.SCHOOL_ALL_CONT));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -279,7 +280,7 @@ public class SchoolStatisticsActivity extends BaseActivity {
             request.add("area_type", mType);
             request.add("area_name", area_name);
         }
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.SCHOOL_TIYU_COURSS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -311,7 +312,7 @@ public class SchoolStatisticsActivity extends BaseActivity {
             request.add("area_type", mType);
             request.add("area_name", area_name);
         }
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.SCHOOL_STATISTICS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {

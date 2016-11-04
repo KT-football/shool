@@ -62,12 +62,9 @@ public class ClassManagerActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         mList.add(new ManagerFragment());
-//        mList.add(new ClassFragment());
-//        mList.add(new BigClassFramgnt());
-//        mList.add(new FootFramgnet());
-        mTv_class.setVisibility(View.GONE);
-        mTv_foot.setVisibility(View.GONE);
-        mTv_bigclass.setVisibility(View.GONE);
+        mList.add(new ClassFragment());
+        mList.add(new BigClassFramgnt());
+        mList.add(new FootFramgnet());
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -95,7 +92,7 @@ public class ClassManagerActivity extends BaseActivity {
 
             }
         });
-//        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(3);
 
     }
 

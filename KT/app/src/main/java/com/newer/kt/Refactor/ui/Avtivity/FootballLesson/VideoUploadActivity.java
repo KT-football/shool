@@ -31,6 +31,7 @@ import com.newer.kt.Refactor.db.UploadBigClassroomCourseRecordBooleanDaoHelper;
 import com.newer.kt.Refactor.db.UploadBigClassroomCourseRecordDaoHelper;
 import com.newer.kt.Refactor.ui.Avtivity.LoginActivity;
 import com.newer.kt.Refactor.ui.Avtivity.UpLessonHistoryActivity;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.adapter.LessonVideoAdapter;
 import com.newer.kt.url.VolleyUtil;
 import com.youku.uploader.IUploadResponseHandler;
@@ -308,6 +309,7 @@ public class VideoUploadActivity extends BaseActivity {
 
     //    提交数据到服务器
     private void doCommitData(UploadBigClassroomCourseRecord bean,String video_id) {
+        String uri = Constants.UPLOAD_BIG_CLASSROOM_COURSE_RECORD;
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("club_id", bean.getClub_id());
@@ -318,12 +320,11 @@ public class VideoUploadActivity extends BaseActivity {
             jsonObject.put("is_finished", bean.getIs_finished());
             jsonObject.put("finished_time", bean.getIs_finished());
 
-            jsonObject.put("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+            jsonObject.put("authenticity_token", MD5.getToken(uri));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         LogUtils.e(jsonObject.toString());
-        String uri = Constants.UPLOAD_BIG_CLASSROOM_COURSE_RECORD;
         JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(
                 Request.Method.POST,
                 uri,

@@ -28,6 +28,7 @@ import com.newer.kt.Business.ServiceLoadBusiness;
 import com.newer.kt.R;
 import com.newer.kt.Refactor.Constants;
 import com.newer.kt.Refactor.Entitiy.Token;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.adapter.VideoAdapter;
 import com.newer.kt.Refactor.db.SideAandBDaoHelper;
 import com.newer.kt.Refactor.db.VcrPathDaoHelper;
@@ -353,6 +354,7 @@ public class VideoActivity extends BaseActivity {
     //    提交数据到服务器
     private void doCommitData(long club_id, long user_id, long game_id, String code, int game_type, String video_id, String time, Side side_a, Side side_b) {
         JSONObject jsonObject = new JSONObject();
+        String uri = Constants.KTHOST+"offline/upload_battle";
         try {
             jsonObject.put("club_id", club_id);
             jsonObject.put("user_id", user_id);
@@ -387,12 +389,11 @@ public class VideoActivity extends BaseActivity {
             jsonObject.put("side_a", side_aa);
             jsonObject.put("side_b", side_bb);
 
-            jsonObject.put("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+            jsonObject.put("authenticity_token", MD5.getToken(uri));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         LogUtils.e(jsonObject.toString());
-        String uri = Constants.KTHOST+"offline/upload_battle";
         JsonRequest<JSONObject> jsonRequest = new JsonObjectRequest(
                 Request.Method.POST,
                 uri,

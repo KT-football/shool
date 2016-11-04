@@ -1,6 +1,8 @@
 package com.newer.kt.Refactor;
 
 
+import com.newer.kt.Refactor.utils.MD5;
+
 /**
  * Created by jy on 16/5/18.
  */
@@ -11,11 +13,11 @@ public class Constants {
     public static final String KTHOST = HOST;
     public static final String Head_HOST = "";
     //下载俱乐部数据
-    public static final String GET_CLUB_DATA = KTHOST + "offline/get_club_data?authenticity_token=K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8&club_id=";
+    public static final String GET_CLUB_DATA = KTHOST + "offline/get_club_data?authenticity_token="+ MD5.getToken(KTHOST + "offline/get_club_data")+"&club_id=";
     //获取班级数据
-    public static final String GET_CLUB_SCHOOL_CLASS_DATA = KTHOST + "offline/get_club_school_class_data?authenticity_token=K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8&club_id=";
+    public static final String GET_CLUB_SCHOOL_CLASS_DATA = KTHOST + "offline/get_club_school_class_data?authenticity_token="+MD5.getToken(KTHOST + "offline/get_club_school_class_data")+"&club_id=";
     //获得学生数、气场数、赛事数数量
-    public static final String GET_CLUB_DATA_COUNT = KTHOST + "offline/get_club_data_count?authenticity_token=K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8&club_id=";
+    public static final String GET_CLUB_DATA_COUNT = KTHOST + "offline/get_club_data_count?authenticity_token="+MD5.getToken(KTHOST + "offline/get_club_data_count")+"&club_id=";
     //获取学生信息
     public static final String GET_USER_INFO = KTHOST + "school_class/get_user_info";
     //获取token

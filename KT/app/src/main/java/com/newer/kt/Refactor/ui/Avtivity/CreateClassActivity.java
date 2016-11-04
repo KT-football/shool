@@ -20,6 +20,7 @@ import com.android.volley.toolbox.JsonRequest;
 import com.frame.app.base.activity.BaseActivity;
 import com.newer.kt.R;
 import com.newer.kt.Refactor.Constants;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.myClass.MyAlertDialog;
 import com.newer.kt.url.VolleyUtil;
 import com.newer.kt.Refactor.view.wheelview.WheelView;
@@ -86,7 +87,7 @@ public class CreateClassActivity extends BaseActivity {
                 jsonObject.put("club_id", clubId);
                 jsonObject.put("grade", grade);
                 jsonObject.put("cls", input);
-                jsonObject.put("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+                jsonObject.put("authenticity_token", MD5.getToken(url));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

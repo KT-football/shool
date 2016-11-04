@@ -54,6 +54,7 @@ import com.newer.kt.Refactor.ui.Avtivity.FootballLesson.FootballLessonActivity;
 import com.newer.kt.Refactor.ui.Avtivity.ListActivity;
 import com.newer.kt.Refactor.ui.Avtivity.RankingList.RankingListActivity;
 import com.newer.kt.Refactor.ui.Avtivity.Settings.SettingsActivity;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.entity.AddClassData;
 import com.newer.kt.entity.ClubDataCount;
 import com.yolanda.nohttp.NoHttp;
@@ -617,7 +618,7 @@ public class ShcoolInfoFragment extends BaseFragment {
     private void getClassInfo(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.GET_SCHOOL_COURSE_DATA_CLASSES, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GET_SCHOOL_COURSE_DATA_CLASSES));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -644,7 +645,7 @@ public class ShcoolInfoFragment extends BaseFragment {
     private void getSchoolGymCourseCombinations(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.GET_SCHOOL_GYM_COURSE_COMBINATIONS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GET_SCHOOL_GYM_COURSE_COMBINATIONS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -672,7 +673,7 @@ public class ShcoolInfoFragment extends BaseFragment {
     private void getBigClassRooms(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.GET_SCHOOL_COURSE_DATA_BIG_CLASSROOMS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GET_SCHOOL_COURSE_DATA_BIG_CLASSROOMS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -729,7 +730,7 @@ public class ShcoolInfoFragment extends BaseFragment {
     private void getTotleStatistics(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.TOTLE_STATISTICS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token",  MD5.getToken(Constants.TOTLE_STATISTICS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -757,7 +758,7 @@ public class ShcoolInfoFragment extends BaseFragment {
     private void getBattlesStatistics(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.BATTLES_STATISTICS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.BATTLES_STATISTICS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -785,7 +786,7 @@ public class ShcoolInfoFragment extends BaseFragment {
     private void getBigClassroomRecordsStatistics(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.BIG_CLASSROOM_RECORDS_STATISTICS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.BIG_CLASSROOM_RECORDS_STATISTICS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -814,7 +815,7 @@ public class ShcoolInfoFragment extends BaseFragment {
     private void getGymCourseRecordsStatistics(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.GYM_COURSE_RECORDS_STATISTICS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GYM_COURSE_RECORDS_STATISTICS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -842,7 +843,7 @@ public class ShcoolInfoFragment extends BaseFragment {
     private void getGymCourseTeacherFinishedStatistics(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.GYM_COURSE_TEACHER_FINISHED_STATISTICS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GYM_COURSE_TEACHER_FINISHED_STATISTICS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -870,7 +871,7 @@ public class ShcoolInfoFragment extends BaseFragment {
     private void getBigClassroomRecords(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.BIG_CLASSROOM_RECORDS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.BIG_CLASSROOM_RECORDS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {

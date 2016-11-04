@@ -28,6 +28,7 @@ import com.newer.kt.Refactor.Net.HttpListener;
 import com.newer.kt.Refactor.adapter.CombinationClassAdapter;
 import com.newer.kt.Refactor.ui.Avtivity.LoginActivity;
 import com.newer.kt.Refactor.ui.Avtivity.Settings.PlayerActivity;
+import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.Refactor.utils.Toast;
 import com.newer.kt.Refactor.view.CircleProgressView;
 import com.newer.kt.Refactor.view.DownListDialog;
@@ -249,7 +250,7 @@ public class BigRoomIndividualActivity extends BaseActivity {
         Request<String> request = NoHttp.createStringRequest(Constants.GET_CLASS_DETAIL, RequestMethod.GET);
         request.add("user_id", user_id);
         request.add("app_cartoon_id", getIntent().getStringExtra("app_cartoon_id"));
-        request.add("authenticity_token", "K9MpaPMdj0jij2m149sL1a7TcYrWXmg5GLrAJDCNBx8");
+        request.add("authenticity_token", MD5.getToken(Constants.GET_CLASS_DETAIL));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
