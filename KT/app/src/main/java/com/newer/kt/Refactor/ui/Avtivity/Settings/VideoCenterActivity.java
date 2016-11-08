@@ -1,27 +1,18 @@
 package com.newer.kt.Refactor.ui.Avtivity.Settings;
 
-import android.net.Uri;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 
 import com.frame.app.base.activity.BaseActivity;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.newer.kt.R;
 import com.newer.kt.Refactor.view.MyPullUpListView;
-import com.newer.kt.Refactor.view.video.VideoBuriedPointStandard;
-import com.newer.kt.Refactor.view.video.VideoMediaManager;
 import com.newer.kt.Refactor.view.video.VideoPlayer;
 import com.newer.kt.Refactor.view.video.VideoPlayerStandard;
-import com.newer.kt.Refactor.view.video.VideoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +32,7 @@ public class VideoCenterActivity extends BaseActivity implements MyPullUpListVie
     SwipeRefreshLayout mSwipeRefreshLayout;
     private BaseAdapter mAdapter;
     private boolean isLoadMore;
+    MediaPlayer mediaPlayer = new MediaPlayer();
 
     @Override
     protected void initHandler(Message msg) {
@@ -133,5 +125,6 @@ public class VideoCenterActivity extends BaseActivity implements MyPullUpListVie
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        VideoPlayer.releaseAllVideos();
     }
 }
