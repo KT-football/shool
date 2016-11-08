@@ -44,5 +44,5 @@
     <drawable name="checkbox_click_false">#FF4081</drawable>
 
     <color name="main_bottom_text_color">#eac350</color>
-    <color name="default_bg_color">#5d5b5c</color>
+    <color name="default_bg_color">#262626</color>
 </resources>

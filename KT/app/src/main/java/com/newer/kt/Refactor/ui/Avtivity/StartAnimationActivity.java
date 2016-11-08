@@ -20,7 +20,6 @@ public class StartAnimationActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_start_animation);
     }
 
     @Override

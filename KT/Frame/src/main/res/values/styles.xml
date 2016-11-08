@@ -13,6 +13,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppThemeTwo" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/start_animation</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/toolbar_bg_color_version_4_color</item>
+        <item name="colorPrimaryDark">@color/toolbar_bg_color_version_4_color</item>
+        <item name="colorAccent">@color/toolbar_bg_color_version_4_color</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
