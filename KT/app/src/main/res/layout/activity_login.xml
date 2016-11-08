@@ -81,27 +81,5 @@
         android:textSize="15dp" />
 
 
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView7"
-        android:layout_alignLeft="@+id/imageView11"
-        android:layout_alignStart="@+id/imageView11"
-        android:layout_marginBottom="9dp"
-        android:src="@drawable/user" />
-
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView8"
-        android:layout_alignLeft="@+id/imageView8"
-        android:layout_alignStart="@+id/imageView8"
-        android:layout_marginBottom="9dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
-        android:src="@drawable/password" />
-
 
 </LinearLayout>
