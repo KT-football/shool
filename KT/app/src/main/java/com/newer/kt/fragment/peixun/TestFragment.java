@@ -1,5 +1,6 @@
 package com.newer.kt.fragment.peixun;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,9 +14,12 @@ import android.widget.TextView;
 
 import com.frame.app.base.fragment.BaseFragment;
 import com.newer.kt.R;
+import com.newer.kt.Refactor.ui.Avtivity.TestListActivity;
 import com.newer.kt.Refactor.view.LoadMoreRecyclerView;
 import com.newer.kt.adapter.BigClassAdater;
 import com.newer.kt.adapter.TestAdater;
+
+import junit.framework.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +95,8 @@ public class TestFragment extends BaseFragment implements LoadMoreRecyclerView.L
 
     @OnClick(R.id.tv_start)
     public void start() {
+        Intent intent = new Intent(getThis(), TestListActivity.class);
+        startActivity(intent);
 
     }
 

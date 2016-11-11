@@ -10,23 +10,20 @@ import com.frame.app.base.activity.BaseActivity;
 import com.frame.app.utils.GsonTools;
 import com.newer.kt.R;
 import com.newer.kt.Refactor.KTApplication;
-import com.newer.kt.adapter.BigClassChooseAdapter;
+import com.newer.kt.Refactor.adapter.TestListAdapter;
 import com.newer.kt.entity.AddClassData;
 import com.newer.kt.entity.GradeList;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import butterknife.OnClick;
-
 /**
  * Created by leo on 16/11/11.
  */
-public class BigClassChooseActivity extends BaseActivity{
+public class TestListActivity extends BaseActivity{
     private ExpandableListView listView;
     private AddClassData classesData;
     private ArrayList<GradeList> item_list;
-
     @Override
     protected void initHandler(Message msg) {
 
@@ -34,7 +31,7 @@ public class BigClassChooseActivity extends BaseActivity{
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_big_choose);
+        setContentView(R.layout.activity_testlist);
     }
 
     @Override
@@ -49,16 +46,9 @@ public class BigClassChooseActivity extends BaseActivity{
         if(classesData != null){
             item_list = classesData.grade_list;
             Collections.sort(item_list);
-            BigClassChooseAdapter myExpandableListViewAdapter = new BigClassChooseAdapter(getThis(), item_list);
+            TestListAdapter myExpandableListViewAdapter = new TestListAdapter(getThis(), item_list);
             listView.setAdapter(myExpandableListViewAdapter);
         }
-    }
-
-
-
-    @OnClick(R.id.tv_luzhi)
-    public void luzhi(){
-
     }
 
     //退出当前Activity

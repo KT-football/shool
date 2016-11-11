@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/nomal_bg"
-    android:orientation="vertical">
-
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/recyclerview_top"
         android:layout_width="match_parent"
@@ -23,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="选择录制对象"
+            android:text="评测"
             android:textColor="@color/gold"
             android:textSize="18dp" />
 
@@ -38,7 +35,6 @@
             android:src="@mipmap/home" />
 
     </RelativeLayout>
-
     <ExpandableListView
         android:id="@+id/layout_select_class_list"
         android:layout_width="match_parent"
@@ -48,21 +44,4 @@
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:groupIndicator="@null" />
-
-    <TextView
-        android:id="@+id/tv_luzhi"
-        android:layout_width="255dp"
-        android:layout_height="38dp"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/layout_select_class_list"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/text_black"
-        android:gravity="center"
-        android:text="录制大课间"
-        android:textColor="@color/white"
-        android:textSize="18dp" />
-
 </LinearLayout>
