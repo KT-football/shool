@@ -1,9 +1,11 @@
 package com.newer.kt.Refactor.Entitiy;
 
+import java.io.Serializable;
+
 /**
  * Created by jy on 16/8/10.
  */
-public class Combinations {
+public class Combinations implements Serializable{
 
     public String id;//": 8,
     public String name;//": "第一课",

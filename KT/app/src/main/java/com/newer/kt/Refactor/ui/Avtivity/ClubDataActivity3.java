@@ -14,19 +14,12 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.frame.app.base.activity.BaseActivity;
 import com.frame.app.base.activity.BaseToolBarActivity3;
 import com.frame.app.base.fragment.BaseFragment;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.frame.app.utils.GsonTools;
 import com.frame.app.utils.LogUtils;
 import com.frame.app.view.LoadingDialog;
@@ -62,7 +55,6 @@ import com.newer.kt.Refactor.ui.Fragment.Main.SettingsFragment;
 import com.newer.kt.Refactor.utils.CommonUtil;
 import com.newer.kt.Refactor.utils.MD5;
 import com.newer.kt.Refactor.utils.UpdateAppUtils;
-import com.newer.kt.Refactor.view.WaterwaveProgress.WaterWaveProgress;
 import com.newer.kt.entity.AddClassData;
 import com.newer.kt.entity.ClassData;
 import com.newer.kt.entity.ClubDataCount;
@@ -70,6 +62,7 @@ import com.newer.kt.entity.GradeList;
 import com.newer.kt.entity.User;
 import com.newer.kt.entity.VersionBean;
 import com.newer.kt.event.MainEvent;
+import com.newer.kt.fragment.main.PeiXunFragment;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.rest.Request;
@@ -78,32 +71,33 @@ import com.youku.player.YoukuPlayerBaseConfiguration;
 
 import org.greenrobot.eventbus.Subscribe;
 
-public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnClickListener {
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ClubDataActivity3 extends BaseActivity implements View.OnClickListener {
 
     /**
      * Called when the activity is first created.
      */
     private List<BaseFragment> fragments;
-    private LessonFragment movieFragment;
+    private PeiXunFragment peixunFragment;
     private ManagerFragment tvFragment;
     private SchoolFragment varietyFragment;
+    private LessonFragment lessonFragment;
     private SettingsFragment cartoonFragment;
     private List<View> views;
-    private TextView movie;
-    private TextView tv;
-    private TextView variety;
-    private TextView cartoon;
-    //    底部中间凸起view
-    private ImageView menuIv;
-    private LinearLayout menull;
+    private ImageView movie;
+    private ImageView tv;
+    private ImageView variety;
+    private ImageView cartoon;
     //    当前选中的views的下标
     private int currentIndex = 0;
     //    旧的views下标
     private int oldIndex = 0;
     //    private boolean isMenuSelect = false;
-    private RelativeLayout left_rl_tv;
-    private RelativeLayout left_rl_img;
-    private TextView left_tv;
     private String club_id;
     private AddClassData addClassData;
     private int progress = 0;
@@ -123,14 +117,11 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     long gameId;
     //服务器数据总量
     long oldDataCount;
-    private WaterWaveProgress waveProgress;
-    private TextView diandiandian;
     public static final String EXTRA_LIST_CODE = "list_code";
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        super.initView(savedInstanceState);
-        addContentView(R.layout.activity_main3);
+        setContentView(R.layout.activity_main3);
 //        if (savedInstanceState == null) {
         isNeedUpdate();
         initFragments();
@@ -186,15 +177,6 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
 
     }
 
-    @Override
-    protected void initToolBar() {
-
-    }
-
-    @Override
-    protected void OnNavigationClick(View v) {
-
-    }
 
     @Override
     protected void initHandler(Message msg) {
@@ -207,7 +189,6 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
         tv.setOnClickListener(this);
         variety.setOnClickListener(this);
         cartoon.setOnClickListener(this);
-        menuIv.setOnClickListener(this);
 //      默认第一个为选中状态
         movie.performClick();
         movie.setSelected(true);
@@ -218,7 +199,6 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
         views = new ArrayList<View>();
         views.add(movie);
         views.add(tv);
-//        views.add(menuIv);
         views.add(variety);
         views.add(cartoon);
 
@@ -236,18 +216,11 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
      */
     private void initViews() {
         //初始化底部导航
-        tv = (TextView) findViewById(R.id.tv);
-        movie = (TextView) findViewById(R.id.movie);
-        variety = (TextView) findViewById(R.id.variety);
-        cartoon = (TextView) findViewById(R.id.cartoon);
-        menuIv = (ImageView) findViewById(R.id.menu_iv);
-        menull = (LinearLayout) findViewById(R.id.menu_ll);
-        diandiandian = getViewById(R.id.layout_schoolinfo_diandiandian);
+        tv = (ImageView) findViewById(R.id.tv);
+        movie = (ImageView) findViewById(R.id.movie);
+        variety = (ImageView) findViewById(R.id.variety);
+        cartoon = (ImageView) findViewById(R.id.cartoon);
 
-        //初始化title
-        left_rl_img = (RelativeLayout) findViewById(R.id.layout_title_left_rl);
-        left_rl_tv = (RelativeLayout) findViewById(R.id.layout_title_left_rl_2);
-        left_tv = (TextView) findViewById(R.id.layout_title_left_tv);
     }
 
     @Override
@@ -286,25 +259,29 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
      * 初始化用到的Fragment
      */
     private void initFragments() {
-        movieFragment = new LessonFragment();
+        peixunFragment = new PeiXunFragment();
         tvFragment = new ManagerFragment();
         varietyFragment = new SchoolFragment();
         cartoonFragment = new SettingsFragment();
+        lessonFragment = new LessonFragment();
 
         fragments = new ArrayList<BaseFragment>();
-        fragments.add(movieFragment);
+        fragments.add(peixunFragment);
         fragments.add(tvFragment);
         fragments.add(varietyFragment);
+        fragments.add(lessonFragment);
         fragments.add(cartoonFragment);
 //        默认加载前两个Fragment，其中第一个展示，第二个隐藏
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.content, movieFragment)
+                .add(R.id.content, peixunFragment)
                 .add(R.id.content, tvFragment)
                 .add(R.id.content, varietyFragment)
+                .add(R.id.content,lessonFragment)
                 .add(R.id.content, cartoonFragment)
                 .hide(tvFragment)
-                .hide(movieFragment)
+                .hide(peixunFragment)
                 .hide(varietyFragment)
+                .hide(lessonFragment)
                 .hide(cartoonFragment)
                 .show(fragments.get(currentIndex))
                 .commit();
@@ -314,21 +291,12 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.movie:
-                select1();
                 currentIndex = 0;
                 break;
             case R.id.tv:
-                select2();
                 currentIndex = 1;
                 break;
-            case R.id.menu_iv:
-//                showDialogToast("暂未开放");
-//                return;
-//                currentIndex = 2;
-                startLoadData();
-                break;
             case R.id.variety:
-                select3();
 //                showDialogToast("暂未开放");
 //                return;
                 currentIndex = 2;
@@ -336,13 +304,9 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
             case R.id.cartoon:
 //                showDialogToast("暂未开放");
 //                return;
-                select4();
                 currentIndex = 3;
                 break;
         }
-//        规避策略将凸起的view还原
-        menuIv.setSelected(false);
-//        isMenuSelect = false;
 
         showCurrentFragment(currentIndex);
     }
@@ -379,75 +343,20 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
         dataCount = bagsNum + userNum + gameNum + graderNum;
         LogUtils.e("oldDataCount = " + oldDataCount + ".....dataCount=" + dataCount);
         if (dataCount > oldDataCount) {
-            diandiandian.setVisibility(View.VISIBLE);
-            diandiandian.setText(Math.abs(dataCount - oldDataCount) + "");
+//            diandiandian.setVisibility(View.VISIBLE);
+//            diandiandian.setText(Math.abs(dataCount - oldDataCount) + "");
             LogUtils.e("" + Math.abs(dataCount - oldDataCount));
             startLoadData();
         } else {
-            diandiandian.setVisibility(View.GONE);
+//            diandiandian.setVisibility(View.GONE);
         }
     }
 
-    private void select2() {
-        setToolBarTitle("班级管理");
-        setNavigationTextView("待更新数据");
-        setRightText("");
-        setOnNavigationClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
-    }
-
-    private void select1() {
-        setToolBarTitle("足球教学");
-        setNavigationTextView("待更新数据");
-        setRightText("");
-        setOnNavigationClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-    }
-
-    private void select3() {
-        setToolBarTitle("校园执裁");
-        setNavigationTextView("排行榜");
-        setRightText("赛事管理");
-        setOnNavigationClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getThis(), RankingListActivity.class);
-                startActivity(intent);
-            }
-        });
-        setRightClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doGames(v);
-            }
-        });
-    }
-
-    private void select4() {
-        setToolBarTitle("我的");
-        setNavigationTextView("");
-        setOnNavigationClick(null);
-        setRightText("");
-    }
-
+    /**
+     * 加载数据
+     */
     private void startLoadData() {
-        menuIv.setVisibility(View.GONE);
-        menull.setVisibility(View.VISIBLE);
-        MaxProgress = 15;
-        progress = 0;
-        waveProgress = (WaterWaveProgress) findViewById(R.id.waterWaveProgress1);
-        waveProgress.setShowProgress(true);
-        waveProgress.animateWave();
-        waveProgress.setMaxProgress(MaxProgress);
-        waveProgress.setProgress(progress);
 
         loadServiceData(club_id);
         loadAddClassData(club_id);
@@ -469,9 +378,6 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
 
 
     private void finishLoadData() {
-        menull.setVisibility(View.GONE);
-        menuIv.setVisibility(View.VISIBLE);
-        diandiandian.setVisibility(View.GONE);
     }
 
     /**
@@ -481,7 +387,6 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
      */
     private void loadClubDataCount(String club_id) {
         LogUtils.e("获得学生数、气场数、赛事数、班级数数量");
-//        ServiceLoadBusiness.getInstance().getClubDataCount(getThis(), club_id);
         Request<String> request = NoHttp.createStringRequest(Constants.GET_CLUB_DATA_COUNT + club_id, RequestMethod.GET);
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
@@ -520,7 +425,6 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
      * @param club_id 俱乐部ID
      */
     private void loadServiceData(final String club_id) {
-//        ServiceLoadBusiness.getInstance().getClubData(getThis(), club_id);
 
         ServiceDataRequest request = new ServiceDataRequest(Constants.GET_CLUB_DATA, RequestMethod.GET);
         request.add("club_id", club_id);
@@ -551,7 +455,6 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
      * @param club_id 俱乐部ID
      */
     private void loadAddClassData(final String club_id) {
-//        ServiceLoadBusiness.getInstance().getClubSchoolClassData(getThis(), club_id);
         NoHttp.setDefaultReadTimeout(60 * 1000);
         Request<String> request = NoHttp.createStringRequest(Constants.GET_CLUB_SCHOOL_CLASS_DATA + club_id, RequestMethod.GET);
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
@@ -777,7 +680,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     private void getBigClassRooms(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.GET_SCHOOL_COURSE_DATA_BIG_CLASSROOMS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token",  MD5.getToken(Constants.GET_SCHOOL_COURSE_DATA_BIG_CLASSROOMS));
+        request.add("authenticity_token", MD5.getToken(Constants.GET_SCHOOL_COURSE_DATA_BIG_CLASSROOMS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -949,7 +852,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     private void getBigClassroomRecords(final String club_id) {
         Request<String> request = NoHttp.createStringRequest(Constants.BIG_CLASSROOM_RECORDS, RequestMethod.GET);
         request.add("club_id", club_id);
-        request.add("authenticity_token",  MD5.getToken(Constants.BIG_CLASSROOM_RECORDS));
+        request.add("authenticity_token", MD5.getToken(Constants.BIG_CLASSROOM_RECORDS));
         CallServer.getRequestInstance().add(getThis(), 0, request, new HttpListener<String>() {
             @Override
             public void onSucceed(int what, Response<String> response) {
@@ -1008,9 +911,6 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
 
     private synchronized void setProgressValue() {
         progress++;
-        if (waveProgress != null) {
-            waveProgress.setProgress(progress);
-        }
         if (progress == MaxProgress) {
             finishLoadData();
             initFragments();
@@ -1097,8 +997,7 @@ public class ClubDataActivity3 extends BaseToolBarActivity3 implements View.OnCl
     public void onEvent(MainEvent mainEvent) {
         switch (mainEvent.getmType()) {
             case 1:
-                loadAddClassData(club_id);
-                movieFragment.refuresh();
+                startLoadData();
                 break;
             case 2:
                 break;

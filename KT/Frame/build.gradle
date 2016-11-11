@@ -55,7 +55,8 @@ dependencies {
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/httpmime-4.1.2.jar')
     compile 'org.greenrobot:eventbus:3.0.0'
-
+//gif
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
 
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
 }

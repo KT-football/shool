@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import com.newer.kt.R;
 
 
-class ViewPagerAdapter extends PagerAdapter {
+public class ViewPagerAdapter extends PagerAdapter {
 
     public Object instantiateItem(ViewGroup collection, int position) {
 

@@ -6,7 +6,7 @@ package com.newer.kt.event;
 
 public class MainEvent {
     /**
-     * 1.修改用戶信息
+     * 1.重新获取数据
      */
     private  int mType;
 

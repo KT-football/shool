@@ -77,11 +77,11 @@ public class LessonGameActivity extends BaseToolBarActivity2 {
         video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getThis(), PlayerActivity.class);
-//                intent.putExtra("isFromLocal",true);
-//                intent.putExtra("video_id",videoPath);
-//                Log.d("Path",videoPath);
-//                startActivity(intent);
+                Intent intent = new Intent(getThis(), PlayerActivity.class);
+                intent.putExtra("isFromLocal",true);
+                intent.putExtra("video_id",videoPath);
+                Log.d("Path",videoPath);
+                startActivity(intent);
 
 //                Intent intent = new Intent(getThis(), VideoViewPlayingActivity.class);
 //                intent.setData(Uri.parse(videoPath));

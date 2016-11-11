@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
-<item android:state_selected="true" android:drawable="@drawable/mine_on"></item>
-<item android:drawable="@drawable/mine_nomal"></item>
+<item android:state_selected="true" android:drawable="@drawable/main_tab_5"></item>
+<item android:drawable="@drawable/main_tab_no_4"></item>
 </selector>
