@@ -93,6 +93,7 @@ public class ClubDataActivity3 extends BaseActivity implements View.OnClickListe
     private ImageView tv;
     private ImageView variety;
     private ImageView cartoon;
+    private ImageView shequ;
     //    当前选中的views的下标
     private int currentIndex = 0;
     //    旧的views下标
@@ -189,6 +190,7 @@ public class ClubDataActivity3 extends BaseActivity implements View.OnClickListe
         tv.setOnClickListener(this);
         variety.setOnClickListener(this);
         cartoon.setOnClickListener(this);
+        shequ.setOnClickListener(this);
 //      默认第一个为选中状态
         movie.performClick();
         movie.setSelected(true);
@@ -200,7 +202,9 @@ public class ClubDataActivity3 extends BaseActivity implements View.OnClickListe
         views.add(movie);
         views.add(tv);
         views.add(variety);
+        views.add(shequ);
         views.add(cartoon);
+
 
         long id = KTApplication.getUserLogin().club_id;
         club_id = String.valueOf(id);
@@ -219,7 +223,9 @@ public class ClubDataActivity3 extends BaseActivity implements View.OnClickListe
         tv = (ImageView) findViewById(R.id.tv);
         movie = (ImageView) findViewById(R.id.movie);
         variety = (ImageView) findViewById(R.id.variety);
+        shequ = (ImageView) findViewById(R.id.shequ);
         cartoon = (ImageView) findViewById(R.id.cartoon);
+
 
     }
 
@@ -304,6 +310,9 @@ public class ClubDataActivity3 extends BaseActivity implements View.OnClickListe
             case R.id.cartoon:
 //                showDialogToast("暂未开放");
 //                return;
+                currentIndex = 4;
+                break;
+            case R.id.shequ:
                 currentIndex = 3;
                 break;
         }
