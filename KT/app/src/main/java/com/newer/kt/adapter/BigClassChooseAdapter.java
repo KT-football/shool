@@ -90,15 +90,14 @@ public class BigClassChooseAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        ClassItemHolder itemHolder = null;
         convertView = View.inflate(context, R.layout.expendlist_item, null);
-        itemHolder = new ClassItemHolder();
+        ClassItemHolder itemHolder = new ClassItemHolder();
         itemHolder.dizhi = (CheckBox) convertView.findViewById(R.id.layout_pay_dizhi);
-        itemHolder.banji = (TextView) convertView.findViewById(R.id.layout_pay_banji);
+//        itemHolder.banji = (TextView) convertView.findViewById(R.id.layout_pay_banji);
         itemHolder.renshu = (TextView) convertView.findViewById(R.id.layout_pay_renshu);
         final ClassData classData = data.get(groupPosition).classes.get(
                 childPosition);
-        itemHolder.banji.setText(classData.cls + "班");
+//        itemHolder.banji.setText(classData.cls + "班");
         ArrayList<User> users = classData.users;
         itemHolder.renshu.setText(users.size() + "学生");
         LogUtils.e(classData.isChecked + "");
